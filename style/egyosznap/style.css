@@ -1,0 +1,62 @@
+/*Style sheet written for the egyosznap event. You can use it ONLY WITH the style/default.css style sheet.*/
+
+.reg div
+{
+	max-width: 600px;
+	min-width: 600px;
+	width: 600px;
+
+	margin-left: 100px;
+	padding: 3px;
+
+	border-style: solid;
+	border-bottom-style: none;
+	border-color: #33ff33;
+	border-width: 5px;
+
+	text-align: center;
+
+	background-color: #80ff80;
+
+}
+
+#nd
+{
+	border-bottom-style: solid;
+	border-top-width: 3px;
+
+	background-color: #b2ffb2;
+}
+
+.unreg div
+{
+	max-width: 600px;
+	min-width: 600px;
+	width: 600px;
+
+	margin-left: 100px;
+	padding: 3px;
+
+	border-style: solid;
+	border-bottom-style: none;
+	border-color: #aa0000;
+	border-width: 5px;
+
+	text-align: center;
+
+	background-color: #ff4d4d;
+}
+
+#un_nd
+{
+	border-bottom-style: solid;
+	border-top-width: 3px;
+
+	background-color: #ff8080;
+}
+
+a
+{
+	color: black;
+	text-decoration: none;
+}

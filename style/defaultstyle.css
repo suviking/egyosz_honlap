@@ -1,0 +1,92 @@
+/*The default style sheet for the illyes_holnap system.*/
+
+body
+{
+	background-color: #e1e1e1;
+
+	font-family: "Century Gothic";
+}
+
+#deftable
+{
+	max-width: 816px;
+	width: 816px;
+
+	border-style: solid;
+	border-top-style: none;
+	border-width: 8px;
+	border-color: #aa0000;
+
+	background-color: white;
+}
+
+#deftable tr, tbody
+{
+	margin: 0;
+	padding: 0;
+}
+
+hr
+{
+	border-style: none;
+	background-color: #aa0000;
+
+	-webkit-margin-before: 0em;
+	-webkit-margin-after: 0em;
+}
+
+#signInText, #signInText a
+{
+	padding-right: 5px;
+	padding-left: 5px;
+	padding-top: 2px;
+
+	font-size: 110%;
+	font-weight: normal;
+	color: white;
+
+	text-shadow: 2px 2px #333;
+
+	text-decoration: none;
+
+}
+
+h3
+{
+	font-weight: bold;
+	font-size: 140%;
+
+	color: #aa0000;
+}
+
+#introText
+{
+	padding-top: 20px;
+	text-align: center;
+}
+
+#loginForm
+{
+	color: #aa0000;
+	font-weight: bold;
+	text-align: right;
+
+	padding-right: 30px;
+	padding-top: 20px;
+}
+
+#bottom_line td 
+{
+	border-top-style: solid;
+	border-color: #aa0000;
+	border-width: 5px;
+	
+	padding: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+
+	text-align: center;
+	font-size: 80%;
+
+	background-color: #e1e1e1;
+}
