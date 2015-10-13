@@ -22,7 +22,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 		$cookie = $password;
 		$password = sha1($password);
 
-		if ($result = $db->query("SELECT * FROM students WHERE username = '".$username."' AND password = '".$password."' "))
+		if ($result = $db->query("SELECT * FROM students WHERE username = '".$username."' AND OM = '".$password."' "))
 		{
 			if ($result->num_rows == 1) //one row was selected from the database, so the user gave a password-username which can match with a row in the database
 			{

@@ -30,11 +30,34 @@ echo ("
 					<td>Kategória:</td>
 					<td colspan='2'>
 						<select name='category' require='require'>
-							<optgroup label='Egyéni vagy duó'>
-								<option value='asdf'>asdf</option>
+							<optgroup label='Ének-zene'>
+								<optgroup label='&nbsp;- Könnyűzene'>
+									<option name='EZ_K_egy'>&nbsp;Könnyűzene - Egyéni vagy duó</option>
+									<option name='EZ_K_csop'>&nbsp;Könnyűzene - Csoportos</option>
+									<option name='EZ_K_zk'>&nbsp;Könnyűzene - Zenekar</option>
+									<option name='EZ_K_oszt'>&nbsp;Osztályének</option>
+								</optgroup>
+
+								<optgroup label='&nbsp;- Komolyzene'>
+									<option name='EZ_kom_egy'>&nbsp;Komolyzene - Egyéni vagy duó</option>
+									<option name='EZ_kom_csop'>&nbsp;Komolyzene - Csoportos</option>
+								</optgroup>
 							</optgroup>
-							<optgroup label='Csoportos'>
-								<option value='asdf'>asd</option>
+
+							<optgroup label='Vers és próza'>
+									<option name='VP_V'>&nbsp;Vers</option>
+									<option name='VP_P'>&nbsp;Próza</option>
+							</optgroup>
+							
+							<optgroup label='Egyéb'>
+									<option name='E_vid'>&nbsp;Egyéb - Videó</option>
+									<option name='E_jel'>&nbsp;Egyéb - Jelenet</option>
+									<option name='E_egyeb'>&nbsp;Egyéb</option>
+								<optgroup label='&nbsp;- Tánc'>
+									<option name='E_T_egy'>&nbsp;Tánc - Egyéni vagy párban</option>
+									<option name='E_T_csop'>&nbsp;Tánc - Csoportos</option>
+									<option name='E_T_oszt'>&nbsp;Osztálytánc</option>
+								</optgroup>
 							</optgroup>
 						</select>
 					</td>
@@ -42,7 +65,7 @@ echo ("
 
 				<tr>
 					<td>Produkció hossza:</td>
-					<td colspan='2'><input name='duration' type='number' min='1' max='15' size='3' value='2'>(Inkább fölfele kerekíts!)</td>
+					<td colspan='2'><input name='duration' type='number' min='1' max='15' size='3' value='2'> perc &nbsp;(Inkább fölfele kerekíts!)</td>
 				</tr>
 
 				<tr>
@@ -111,17 +134,19 @@ echo ("
 			<table>
 				<tr>
 					<td>E-mail cím, amin elérünk: </td>
-					<td><input name='email' type='email' size='30' required='required'></td>
+					<td colspan='2'><input name='email' type='email' size='30' required='required'></td>
 				</tr>
 
 				<tr>
-					<td>Résztvevők hozzáadása: </td>
-					<td></td>
+					<td>Résztvevők hozzáadása:</td>
+					<td><input type='text' id='userSearch' size='30' onKeyUp='showUser(this.value)'> <br /> <div id='hintField' style='height:30px;'></div></td>
+					<td><textarea form='regForm' name='participantUsernames' rows='5' cols='30' maxlength='10000' id='addedUserField'></textarea></td>
+					
 				</tr>
 
 				<tr>
 					<td>Egyéb kérés: </td>
-					<td><textarea form='regForm' cols='30' rows='5' maxlength='100'></textarea></td>
+					<td colspan='2'><textarea form='regForm' cols='30' rows='5' maxlength='100' name='comment'></textarea></td>
 				</tr>
 			</table>
 		</fieldset>
