@@ -33,6 +33,8 @@ if (isset($_POST["username"]))	//if the user tried to log in
 				header("Location: index.php");
 
 				$result->free();
+
+				exit;
 			}
 			else //the user gave a password-username which can not match with any row in the database, incorrect passowrd or username
 			{

@@ -9,8 +9,8 @@ if (isset($_COOKIE["username"]) AND isset($_COOKIE["cookie"]))
 	$username = res($_COOKIE["username"]);
 	$cookie = res($_COOKIE["cookie"]);
 
-	if ($result = $db->query("SELECT * FROM students WHERE username = '" .$username. "' ")) 
-	{	
+	if ($result = $db->query("SELECT * FROM students WHERE username = '" .$username. "' "))
+	{
 		$user = $result->fetch_assoc();
 		if (sha1($user["cookie"]) == $cookie)
 		{
@@ -20,17 +20,20 @@ if (isset($_COOKIE["username"]) AND isset($_COOKIE["cookie"]))
 		else
 		{
 			header("Location: logout.php");
+			exit;
 		}
-		
+
 	}
 	else
 	{
 		header("Location: logout.php");
+		exit;
 	}
 }
 else
 {
 	header("Location: logout.php");
+	exit;
 }
 
 $result->free();
