@@ -6,13 +6,15 @@ $deadline = "2015. 12. 05.";	// the date you want to display as the deadline of 
 
 $theme = "illyesnapok"; //you can choose from: "illyesnapok"; "egyosznap"; "tanarertekeles"
 $welcomeText = "Köszöntünk az Egyosz oldalán!";
-$discription = "Idén is, mint azt már megszokhattátok, az interneten kell regisztrálnotok az Illyés-napi produkcióitokat.";
+$description = "Idén is, mint azt már megszokhattátok, az interneten kell regisztrálnotok az Illyés-napi produkcióitokat.";
 
-$bottomLineText = "
+/*$bottomLineText = "
 <p><b>". $maintitle ." - Jelentkezési rendszer </b> <br/>
 Ötletgazda: Solymosi Máté, A rendszer tervezője és üzemeltetője: Süvegh Dávid, Látványterv: Szakács Norbert <br/>
 Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.</p>
-";
+";*/
+
+$bottomLineText = "Készítő és üzemeltető: Süvegh Dávid - Design: Gergály Benedek <br> Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.";
 
 //THEME SPECIFIC VARIABLES
 

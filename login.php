@@ -74,9 +74,10 @@ if (isset($_POST["username"]))	//if the user tried to log in
 		die();
 	}
 }
-else	//if the user did not tried to log in, the default login form
+else	//if the user did not try to log in, the default login form
 {
-	echo("
+	/*echo("
+
 		<div align='center'><img src='style/" .$theme. "/head_line.png'></div>
 		<hr align='center'size='10' width='816px'>
 
@@ -90,7 +91,7 @@ else	//if the user did not tried to log in, the default login form
 				</td>
 			</tr>
 			<tr>
-				<td style='width: 50%; padding: 10px; font-size: 105%;' >" .$discription. "</td>
+				<td style='width: 50%; padding: 10px; font-size: 105%;' >" .$description. "</td>
 				<td id='loginForm'>
 					<form action='login.php' method='POST'>
 						<p>Felhasználónév: <input type='text' name='username'></p>
@@ -109,13 +110,48 @@ else	//if the user did not tried to log in, the default login form
 			</tr>
 		</table>
 
+		");*/
 
+		echo "
 
+			<div class='navbar navbar-warning'>
+				<div class='navbar-header'>
+					<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+				</div>
+				<div class='navbar-collapse collapse navbar-warning-collapse'>
+					<ul class='nav navbar-nav navbar-right'>
+						<li>
+							<!--<a href=''>Bejelentkezés</a>-->
+						</li>
+					</ul>
+				</div>
+			</div>
 
+			<div class='jumbotron col-lg-12'>
+				<h1>$welcomeText</h1>
+				<div class='col-lg-8'>
+					<p>$description</p>
+				</div>
+				<form class='col-lg-4' action='login.php' method='POST'>
+					<fieldset>
+						<div class='form-group'>
+							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév'>
+						</div>
+						<div class='form-group'>
+							<input class='form-control floating-label' type='password' name='password' placeholder='Jelszó'>
+						</div>
+						<div class='form-group'>
+							<button type='submit' class='btn btn-primary'>Jelentkezés</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
 
+			<footer class='footer well'>
+				<p class='text-center'>$bottomLineText</p>
+			</footer>
 
-
-		");
+		";
 }
 
 
