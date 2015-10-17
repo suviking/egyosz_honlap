@@ -1,5 +1,5 @@
 <?php
-///The index.php for the illyesnapok theme.
+#The index.php for the illyesnapok theme.
 
 if (!include("include/cookiecheck.php"))
 {
@@ -7,23 +7,24 @@ if (!include("include/cookiecheck.php"))
 }
 
 
-#location radio button synthax
+
 
 echo ("
-	<p>Az alábbi űrlap kitöltésével tudod regisztrálni a produkciódat. <a href='logout.php'>Kijelentkezés</a></p>
+	<p>Köszöntünk a honlapon, " .$user["firstName"]. "! -  <a href='logout.php'>Kijelentkezés</a></p>
+	<p>Az alábbi űrlap kitöltésével tudod regisztrálni a produkciódat. </p>
 	
-	<form action='theme/" .$theme. "/perfReg.php' id='regForm'>
+	<form action='theme/illyesnapok/perfReg.php' id='regForm' method='POST'>
 		<fieldset>
 			<legend>Általános információk: </legend>
 			<table>
 				<tr>
 					<td>Produkció címe:</td>
-					<td colspan='2'><input name='perfName' type='text' maxlength='30' size='30' required='required'></td>
+					<td colspan='2'><input name='title' type='text' maxlength='25' size='30' required='required'></td>
 				</tr>
 
 				<tr>
 					<td>Résztvevők száma:</td>
-					<td colspan='2'><input name='participants' type='number' min='1' max='700' size='3' value='1'></td>
+					<td colspan='2'><input name='partNo' type='number' min='1' max='700' size='3' value='1'></td>
 				</tr>
 
 				<tr>
@@ -81,50 +82,55 @@ echo ("
 			<table>
 				<tr>
 					<td>Vezetékes mikrofon: </td>
-					<td><input name='wiredMic' type='number' min='0' max='2'></td>
+					<td><input name='wiredMic' type='number' min='0' max='2' value='0'></td>
 					<td>Ebből állványos: </td>
-					<td><input name='wiredMicStand' type='number' min='0' max='2'></td>
+					<td><input name='wiredMicStand' type='number' min='0' max='2' value='0'></td>
 				</tr>
 
 				<tr>
 					<td>Vezetéknélküli mikrofon: </td>
-					<td><input name='wirelessMic' type='number' min='0' max='3'></td>
+					<td><input name='wirelessMic' type='number' min='0' max='3' value='0'></td>
 					<td>Ebből állványos: </td>
-					<td><input name='wirelessMicStand' type='number' min='0' max='3'></td>
+					<td><input name='wirelessMicStand' type='number' min='0' max='3' value='0'></td>
+				</tr>
+
+				<tr>
+					<td>Mikroport: </td>
+					<td colspan='3'><input name='microport' type='number' min='0' max='2' value='0'></td>
 				</tr>
 
 				<tr>
 					<td>Térmikrofon (állvánnyal):</td>
-					<td colspan='3'><input name='fieldMic' type='number' min='0' max='4'></td>
+					<td colspan='3'><input name='fieldMic' type='number' min='0' max='4' value='0'></td>
 				</tr>
 
 				<tr>
 					<td>Hangszermikrofon (állvánnyal):</td>
-					<td colspan='3'><input name='instMic' type='number' min='0' max='2'></td>
+					<td colspan='3'><input name='instMic' type='number' min='0' max='2' value='0'></td>
 				</tr>
 
 				<tr>
 					<td>Székek: </td>
-					<td colspan='3'><input name='chair' type='number' min='0' max='9'></td>
+					<td colspan='3'><input name='chair' type='number' min='0' max='9' value='0'></td>
 				</tr>
 
 				<tr>
 					<td>Lejátszandó zenefájl:</td>
 					<td>Van: <input name='ifMusicFile' type='checkbox' value='yes'></td>
 					<td>Fájl(ok) neve:</td>
-					<td><input name='musicFileName' type='text' size='30'></td>
+					<td><input name='musicFile' type='text' size='30'></td>
 				</tr>
 
 				<tr>
 					<td>Projektor: </td>
 					<td>Kell: <input name='ifProjector' type='checkbox' value='yes'></td>
 					<td>Kivetítendő fájl(ok) neve:</td>
-					<td><input name='projFileName' type='text' size='30'></td>
+					<td><input name='projectorFile' type='text' size='30'></td>
 				</tr>
 
 				<tr>
 					<td>Külön fénytechinkai igény: </td>
-					<td colspan='3'>Van: <input name='ifExtraLight' type='checkbox' value='yes'></td>
+					<td colspan='3'>Van: <input name='lightRequest' type='checkbox' value='yes'> - Az egyéb kéréshez is írhatod, vagy meg is kereshetsz vele minket!</td>
 				</tr>
 			</table>
 		</fieldset>
@@ -140,17 +146,17 @@ echo ("
 				<tr>
 					<td>Résztvevők hozzáadása:</td>
 					<td><input type='text' id='userSearch' size='30' onKeyUp='showUser(this.value)'> <br /> <div id='hintField' style='height:30px;'></div></td>
-					<td><textarea form='regForm' name='participantUsernames' rows='5' cols='30' maxlength='10000' id='addedUserField'></textarea></td>
+					<td><textarea form='regForm' name='particUsers' rows='5' cols='30' maxlength='10000' id='addedUserField'></textarea></td>
 					
 				</tr>
 
 				<tr>
 					<td>Egyéb kérés: </td>
-					<td colspan='2'><textarea form='regForm' cols='30' rows='5' maxlength='100' name='comment'></textarea></td>
+					<td colspan='2'><textarea form='regForm' cols='30' rows='5' maxlength='500' name='comment'></textarea></td>
 				</tr>
 			</table>
 		</fieldset>
-		<input type='submit'>
+		<input type='submit' value='Regisztrálás!'>
 	</form>
 	");
 

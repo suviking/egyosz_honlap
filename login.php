@@ -17,7 +17,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 {
 	if ($_POST["username"] != "" AND $_POST["password"] != "")	//checks if the user gave a username AND a passowrd
 	{
-		$username = res($_POST["username"]);
+		$username = nameString(res($_POST["username"]));
 		$password = res($_POST["password"]);
 		$cookie = $password;
 		$password = sha1($password);
