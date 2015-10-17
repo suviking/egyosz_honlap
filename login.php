@@ -38,7 +38,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 			}
 			else //the user gave a password-username which can not match with any row in the database, incorrect passowrd or username
 			{
-				echo("
+				/*echo("
 				<div align='center'><img src='style/" .$theme. "/head_line.png'></div>
 				<hr align='center'size='10' width='816px'>
 
@@ -50,15 +50,36 @@ if (isset($_POST["username"]))	//if the user tried to log in
 					<tr><td style='padding: 20px;padding-top:0px;' align='center'>
 						Hibás felhasználóevet vagy jelszót adott meg.
 					</td></tr>
-				</table>");
+				</table>");*/
+
+				echo "
+				<div class='navbar navbar-warning'>
+					<div class='navbar-header'>
+						<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+					</div>
+					<div class='navbar-collapse collapse navbar-warning-collapse'>
+						<ul class='nav navbar-nav navbar-right'>
+							<li>
+								<!--<a href=''>Bejelentkezés</a>-->
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class='alert alert-danger'>
+					<h3>Hibás felhasználónév vagy jelszó!</h3>
+					<a href='./logout.php' class='btn btn-danger btn-raised'>Vissza</a>
+				</div>
+				";
+
 				header("Refresh: 3; url=logout.php");
-				die();
+				exit;
 			}
 		}
 	}
 	else //if the user did not gave a username OR a password
 	{
-		echo("
+		/*echo("
 			<div align='center'><img src='style/" .$theme. "/head_line.png'></div>
 			<hr align='center'size='10' width='816px'>
 
@@ -69,7 +90,29 @@ if (isset($_POST["username"]))	//if the user tried to log in
 				<tr><td style='padding: 10px;'><a href='logout.php'><img src='style/back_butt.png'></a></td></tr>
 				<tr><td style='padding: 20px;padding-top:0px;' align='center'>Nem adott meg felhasználónevet vagy jelszót!</td></tr>
 			</table>
-			");
+			");*/
+
+			echo "
+			<div class='navbar navbar-warning'>
+				<div class='navbar-header'>
+					<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+				</div>
+				<div class='navbar-collapse collapse navbar-warning-collapse'>
+					<ul class='nav navbar-nav navbar-right'>
+						<li>
+							<!--<a href=''>Bejelentkezés</a>-->
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class='alert alert-danger'>
+				<h3>Nincs megadva felhasználónév vagy jelszó!</h3>
+				<a href='./logout.php' class='btn btn-danger btn-raised'>Vissza</a>
+			</div>
+			";
+
+
 		header("Refresh: 3; url = logout.php");
 		die();
 	}

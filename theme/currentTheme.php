@@ -1,6 +1,6 @@
 <?php
 
-$maintitle = "Illyés-napok - 2015";
+$maintitle = "Illyés-napok 2015";
 $date = mktime(0,0,0,12,16,2015);		// the date you want to display when the event will take place
 $deadline = "2015. 12. 05.";	// the date you want to display as the deadline of the registration
 
@@ -14,7 +14,8 @@ $description = "Idén is, mint azt már megszokhattátok, az interneten kell reg
 Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.</p>
 ";*/
 
-$bottomLineText = "Készítő és üzemeltető: Süvegh Dávid - Design: Gergály Benedek <br> Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.";
+$bottomLineText = "Készítő és üzemeltető: Süvegh Dávid - Design: Gergály Benedek <br>
+	Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.";
 
 //THEME SPECIFIC VARIABLES
 
