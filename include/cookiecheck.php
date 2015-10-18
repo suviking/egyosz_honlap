@@ -9,6 +9,9 @@ if (isset($_COOKIE["username"]) AND isset($_COOKIE["cookie"]))
 	$username = res($_COOKIE["username"]);
 	$cookie = res($_COOKIE["cookie"]);
 
+	$stmt = $db->prepare("SELECT * FROM students WHERE username = ? ");
+	$stmt->bind_param("s", $username);
+
 	if ($result = $db->query("SELECT * FROM students WHERE username = '" .$username. "' "))
 	{
 		$user = $result->fetch_assoc();

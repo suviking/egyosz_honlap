@@ -4,6 +4,7 @@
 if (!include("include/cookiecheck.php"))
 {
 	header("Location: logout.php");
+	exit;
 }
 
 
@@ -163,5 +164,5 @@ echo ("
 
 
 
-
+exit;
  ?>

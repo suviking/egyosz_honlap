@@ -7,5 +7,5 @@ $title = $maintitle;
 require_once("include/head.php");
 
 require_once("theme/" .$theme. "/index.php");
-
+exit;
 ?>

@@ -31,9 +31,6 @@ if (isset($_POST["username"]))	//if the user tried to log in
 				setcookie("cookie", $cookie, time() + 1800);
 				setcookie("username", $user["username"], time() + 1800);
 				header("Location: index.php");
-
-				$result->free();
-
 				exit;
 			}
 			else //the user gave a password-username which can not match with any row in the database, incorrect passowrd or username
@@ -75,6 +72,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 				header("Refresh: 3; url=logout.php");
 				exit;
 			}
+			$result->free();
 		}
 	}
 	else //if the user did not gave a username OR a password
@@ -199,5 +197,5 @@ else	//if the user did not try to log in, the default login form
 
 
 
-
+exit;
 ?>

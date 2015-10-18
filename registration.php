@@ -3,6 +3,7 @@
 if (!include("include/cookiecheck.php"))
 {
 	header("Location: logout.php");
+	exit;
 }
 
 $line = res($_GET["l"]);
@@ -67,4 +68,8 @@ echo("
 				</td>
 		</tr>
 	</table>");
+
+
+$result->free();
+exit;
 ?>

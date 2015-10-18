@@ -44,4 +44,6 @@ if ($hint == "")
 }
 
 echo ($hint);
+$hintSearchResult->free();
+exit;
  ?>

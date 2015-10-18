@@ -4,6 +4,7 @@
 if (!include("include/cookiecheck.php"))
 {
 	header("Location: logout.php");
+	exit;
 }
 
 
@@ -58,6 +59,7 @@ for ($i=0; $i < $timelineNumber; $i++)
 					<tr><td colspan='2' style='height: 30px;'></td></tr>
 				");
 		}
+		$result->free();
 	}
 }
 
@@ -73,6 +75,5 @@ echo("
 
 
 
-
-
+exit;
 ?>

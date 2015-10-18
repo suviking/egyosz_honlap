@@ -56,5 +56,6 @@ else
 $stmt->close();
 
 header("Refresh: 3; url=../../");
+exit;
 
 ?>
