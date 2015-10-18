@@ -9,7 +9,7 @@ if (!include("include/cookiecheck.php"))
 echo "
 	<div class='navbar navbar-warning'>
 		<div class='navbar-header'>
-			<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+			<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
 		</div>
 		<div class='navbar-collapse collapse navbar-warning-collapse'>
 			<ul class='nav navbar-nav navbar-right'>
