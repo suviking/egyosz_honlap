@@ -52,7 +52,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 				echo "
 				<div class='navbar navbar-warning'>
 					<div class='navbar-header'>
-						<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+						<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
 					</div>
 					<div class='navbar-collapse collapse navbar-warning-collapse'>
 						<ul class='nav navbar-nav navbar-right'>
@@ -93,7 +93,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 			echo "
 			<div class='navbar navbar-warning'>
 				<div class='navbar-header'>
-					<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
 				</div>
 				<div class='navbar-collapse collapse navbar-warning-collapse'>
 					<ul class='nav navbar-nav navbar-right'>
@@ -157,7 +157,7 @@ else	//if the user did not try to log in, the default login form
 
 			<div class='navbar navbar-warning'>
 				<div class='navbar-header'>
-					<a class='navbar-brand' href=" . $_SERVER['HTTP_HOST'] . ">$maintitle</a>
+					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
 				</div>
 				<div class='navbar-collapse collapse navbar-warning-collapse'>
 					<ul class='nav navbar-nav navbar-right'>
