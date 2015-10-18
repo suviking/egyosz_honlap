@@ -7,7 +7,7 @@ if (!include("include/cookiecheck.php"))
 	exit;
 }
 
-echo "
+echo ("
 	<div class='navbar navbar-warning'>
 		<div class='navbar-header'>
 			<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
@@ -74,7 +74,7 @@ echo "
 									</optgroup>
 								</optgroup>
 						</select>
-<<<<<<< HEAD
+
 					</td>
 				</tr>
 
