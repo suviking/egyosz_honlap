@@ -128,6 +128,14 @@ echo "
 				</div>
 
 				<div class='form-group'>
+					<label for='microport' class='col-lg-2 control-label'>Mikroport</label>
+					<div class='col-lg-4'>
+						<input id='microport' class='form-control' name='microport' type='number' min='0' max='2' value='0'>
+					</div>
+				</div>
+
+
+				<div class='form-group'>
 					<label for='fieldMic' class='col-lg-2 control-label'>Térmikrofon (állvánnyal)</label>
 					<div class='col-lg-4'>
 						<input id='fieldMic' class='form-control' name='fieldMic' type='number' min='0' max='4' value='0'>
