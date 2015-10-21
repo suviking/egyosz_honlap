@@ -21,7 +21,7 @@ echo "
 		</div>
 	</div>
 
-	<h2 class='well'>Az alábbi űrlap kitöltésével tudod regisztrálni a produkciódat.</h2>
+	<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "!  Az alábbi űrlap kitöltésével tudod regisztrálni a produkciódat.</h2>
 
 	<div class='jumbotron col-lg-12'>
 
@@ -32,7 +32,7 @@ echo "
 				<div class='form-group'>
 					<label for='title' class='col-lg-2 control-label'>Produkció címe</label>
 					<div class='col-lg-4'>
-						<input id='title' class='form-control' name='title' type='text' maxlength='30' size='30' required='required'>
+						<input id='title' class='form-control' name='title' type='text' maxlength='25' size='30' required='required'>
 					</div>
 				</div>
 
