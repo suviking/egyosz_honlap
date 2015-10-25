@@ -210,11 +210,10 @@ echo "
 				<div class='form-group'>
 					<label for='userSearch' class='col-lg-2 control-label'>Résztvevők hozzáadása</label>
 					<div class='col-lg-4'>
-						<input class='form-control' type='text' id='userSearch' size='30' onKeyUp='showUser(this.value)'>
 						<div id='hintField' style='' class='well'></div>
 					</div>
 					<div class='col-lg-6'>
-						<textarea class='form-control' form='regForm' name='particUsers' rows='5' maxlength='10000' id='addedUserField'></textarea>
+						<textarea class='form-control' form='regForm' name='particUsers' rows='5' maxlength='10000' id='addedUserField' onKeyUp='showUser(this.value)'></textarea>
 					</div>
 				</div>
 

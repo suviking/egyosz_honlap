@@ -10,6 +10,7 @@ echo("<html><head><meta charset='UTF-8' /></head><body>");
 $q = $_GET["q"];
 $q = nameString($q);
 
+
 $hintSearchResult = $db->query("SELECT firstName, fullname, class, username FROM students");
 $rows = array();
 while ($row = $hintSearchResult->fetch_assoc()) 
@@ -28,7 +29,7 @@ if (strlen($q) > 2)
 		$fullnameToCompare = nameString($rows[$i]["fullname"]);
 		if (stristr($fullnameToCompare, $q))
 		{
-			$toHint = "<a onClick='addUser(" .'"' .$rows[$i]["username"] .'"'. ")' href='#' >" .$rows[$i]["fullname"]. " - " .$rows[$i]["class"]. "</a><br />";
+			$toHint = "<a onClick='addUser(" .'"' .$rows[$i]["username"] .'"'. ")' href='#addUserField' >" .$rows[$i]["fullname"]. " - " .$rows[$i]["class"]. "</a><br />";
 			$hint = $hint . $toHint;
 		}
 	}
