@@ -149,6 +149,58 @@ echo "
 					</div>
 				</div>
 
+
+
+
+				<div class='form-group'>
+					<label for='jack63' class='col-lg-2 control-label'>Jack 6.3mm</label>
+					<div class='col-lg-4'>
+						<input id='jack63' class='form-control' name='jack63' type='number' min='0' max='2' value='0'>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<label for='jack35' class='col-lg-2 control-label'>Jack 3.5mm</label>
+					<div class='col-lg-4'>
+						<input id='jack35' class='form-control' name='jack35' type='number' min='0' max='2' value='0'>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<label for='guitarAmp' class='col-lg-2 control-label'>Ha hozol gitárerősítőt</label>
+					<div class='col-lg-4'>
+						<input id='guitarAmp' class='form-control' name='guitarAmp' type='number' min='0' max='5' value='0'>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<label for='piano' class='col-lg-2 control-label'>Zongora</label>
+					<div class='col-lg-4'>
+						<input id='piano' class='form-control' name='piano' type='number' min='0' max='1' value='0'>
+					</div>
+				</div>
+
+				<div class='form-group'>
+					<label for='musicStand' class='col-lg-2 control-label'>Kottatartó (nekünk csak egy van)</label>
+					<div class='col-lg-4'>
+						<input id='musicStand' class='form-control' name='musicStand' type='number' min='0' max='1' value='0'>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 				<div class='form-group'>
 					<label for='chair' class='col-lg-2 control-label'>Székek</label>
 					<div class='col-lg-4'>
@@ -210,6 +262,7 @@ echo "
 				<div class='form-group'>
 					<label for='userSearch' class='col-lg-2 control-label'>Résztvevők hozzáadása</label>
 					<div class='col-lg-4'>
+						<p>Osztálytánc és osztályének esetén nem kell kitölteni, elég a résztvevők számát beírni fenn</p>
 						<div id='hintField' style='' class='well'></div>
 					</div>
 					<div class='col-lg-6'>

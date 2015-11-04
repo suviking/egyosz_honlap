@@ -26,6 +26,11 @@ $wirelessMicStand = $_POST["wirelessMicStand"];
 $microport = $_POST["microport"];
 $fieldMic = $_POST["fieldMic"];
 $instMic = $_POST["instMic"];
+$jack63 = $_POST["jack63"];
+$jack35 = $_POST["jack35"];
+$guitarAmp = $_POST["guitarAmp"];
+$piano = $_POST["piano"];
+$musicStand = $_POST["musicStand"];
 $chair = $_POST["chair"];
 $musicFile = $_POST["musicFile"];
 $projectorFile = $_POST["projectorFile"];
@@ -35,14 +40,18 @@ if(isset($_POST["lightRequest"])) {$lightRequest = 1;} else {$lightRequest = 0;}
 $email = $_POST["email"];
 $particUsers = $_POST["particUsers"];
 $comment = $_POST["comment"];
+$dateOfReg = date("Y-m-d");
+
 
 
 
 if ($stmt = $db->prepare(
-	"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, comment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {echo($db->error);}
+	"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg) 
+	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {echo($db->error);}
 
-$stmt->bind_param("isisisiiiiiiiississs",$regStudID ,$title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic,
-	$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $comment);
+$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic, 
+	$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35, 
+	$musicStand, $guitarAmp, $comment, $dateOfReg);
 
 if($stmt->execute())
 {
@@ -50,6 +59,7 @@ if($stmt->execute())
 }
 else
 {
+	echo($db->error);
 	echo("<p>Probléma merült fel a jelentkezésed elküldése közben. Kérlek, ismételd meg később!</p>");
 }
 
