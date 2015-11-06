@@ -44,27 +44,32 @@ $dateOfReg = date("Y-m-d");
 
 
 
-
-if ($stmt = $db->prepare(
-	"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg) 
-	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {die($db->error);}
-
-$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic, 
-	$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35, 
-	$musicStand, $guitarAmp, $comment, $dateOfReg);
-
-if($stmt->execute())
+if (!isset($_GET["edit"]))
 {
-	echo("<p>Jelentkezésedet fogadtuk. Kellemes felkészülést és sok sikert a produkciódhoz! :) </p>");
+	if ($stmt = $db->prepare(
+		"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {die($db->error);}
+
+	$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic, 
+		$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35, 
+		$musicStand, $guitarAmp, $comment, $dateOfReg);
+
+	if($stmt->execute())
+	{
+		echo("<p>Jelentkezésedet fogadtuk. Kellemes felkészülést és sok sikert a produkciódhoz! :) </p>");
+	}
+	else
+	{
+		echo($db->error);
+		echo("<p>Probléma merült fel a jelentkezésed elküldése közben. Kérlek, ismételd meg később!</p>");
+	}
+
+	$stmt->close();
 }
-else
+else if (isset($_GET["edit"]))
 {
-	echo($db->error);
-	echo("<p>Probléma merült fel a jelentkezésed elküldése közben. Kérlek, ismételd meg később!</p>");
+	
 }
-
-$stmt->close();
-
 header("Refresh: 3; url=../../");
 exit;
 
