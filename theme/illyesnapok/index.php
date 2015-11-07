@@ -72,28 +72,28 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 							<select class='form-control' id='category' name='category' require='require'>
 								<optgroup label='Ének-zene'>
 									<optgroup label='&nbsp;- Könnyűzene'>
-										<option name='EZ_K_egy'>&nbsp;Könnyűzene - Egyéni vagy duó</option>
-										<option name='EZ_K_csop'>&nbsp;Könnyűzene - Csoportos</option>
-										<option name='EZ_K_zk'>&nbsp;Könnyűzene - Zenekar</option>
-										<option name='EZ_K_oszt'>&nbsp;Osztályének</option>
+										<option name='EZ_K_egy'>Könnyűzene - Egyéni vagy duó</option>
+										<option name='EZ_K_csop'>Könnyűzene - Csoportos</option>
+										<option name='EZ_K_zk'>Könnyűzene - Zenekar</option>
+										<option name='EZ_K_oszt'>Osztályének</option>
 									</optgroup>
 									<optgroup label='&nbsp;- Komolyzene'>
-										<option name='EZ_kom_egy'>&nbsp;Komolyzene - Egyéni vagy duó</option>
-										<option name='EZ_kom_csop'>&nbsp;Komolyzene - Csoportos</option>
+										<option name='EZ_kom_egy'>Komolyzene - Egyéni vagy duó</option>
+										<option name='EZ_kom_csop'>Komolyzene - Csoportos</option>
 									</optgroup>
 								</optgroup>
 								<optgroup label='Vers és próza'>
-										<option name='VP_V'>&nbsp;Vers</option>
-										<option name='VP_P'>&nbsp;Próza</option>
+										<option name='VP_V'>Vers</option>
+										<option name='VP_P'>Próza</option>
 								</optgroup>
 								<optgroup label='Egyéb'>
-										<option name='E_vid'>&nbsp;Egyéb - Videó</option>
-										<option name='E_jel'>&nbsp;Egyéb - Jelenet</option>
-										<option name='E_egyeb'>&nbsp;Egyéb</option>
+										<option name='E_vid'>Egyéb - Videó</option>
+										<option name='E_jel'>Egyéb - Jelenet</option>
+										<option name='E_egyeb'>Egyéb</option>
 									<optgroup label='&nbsp;- Tánc'>
-										<option name='E_T_egy'>&nbsp;Tánc - Egyéni vagy párban</option>
-										<option name='E_T_csop'>&nbsp;Tánc - Csoportos</option>
-										<option name='E_T_oszt'>&nbsp;Osztálytánc</option>
+										<option name='E_T_egy'>Tánc - Egyéni vagy párban</option>
+										<option name='E_T_csop'>Tánc - Csoportos</option>
+										<option name='E_T_oszt'>Osztálytánc</option>
 									</optgroup>
 								</optgroup>
 							</select>
@@ -308,12 +308,18 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 		exit;
 	}
 
-
+	setcookie("sql", "", time()-1800);
 
 	if ($user["accessLevel"] < 3)		#case of the user is an admin, or can edit, or can see everything, accessLevel 0, 1, 2 in order
 	{
 
 		require("include/head.php");
+
+		if ($user["accessLevel"] == 0)
+		{
+			$adminLink = "	<li><a href='index.php?adminpage=4'>Jelszavak kezelése</a></li>
+							<li><a href='index.php?adminpage=5'>SQL</a></li>";
+		}
 
 
 		########the top bar of the website
@@ -324,6 +330,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 				</div>
 				<div class='navbar-collapse collapse navbar-warning-collapse'>
 					<ul class='nav navbar-nav navbar-right'>
+						".$adminLink."
 						<li>
 							<a href='index.php'>Vissza a regisztrációs űrlaphoz</a>
 						</li>
@@ -340,15 +347,14 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 
 		if (isset($_GET["orderby"]))
 		{
-			$orderby = $_GET["orderby"];
+			$orderby = res($_GET["orderby"]);
 		}
 		else
 		{
 			$orderby = "id";
 		}
 
-		$stmt = $db->prepare("SELECT * FROM performances WHERE deleted = 0 ORDER BY ?") OR die($db->error);
-		$stmt->bind_param("s", $orderby);
+		$stmt = $db->prepare("SELECT * FROM performances WHERE deleted=0 ORDER BY $orderby ASC") OR die($db->error);
 		$stmt->execute() OR die($db->error);
 		$result = $stmt->get_result();
 		$stmt->close();
@@ -362,7 +368,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 		$userFunctionKeys = "";
 
 
-		if (empty($rows)) 		#rows array is empty --> no registrations wre sent yet
+		if (empty($rows)) 		#rows array is empty --> no registrations were sent yet
 		{
 			echo("<p>Nincs még regisztrált előadás.</p>");
 			$resultField = "";
@@ -388,11 +394,11 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			}
 		}
 			echo("<table><tr>
-				<td>id</td> <td>regStudID</td> <td>title</td> <td><a href='?adminpage=1&orderby=category'>category</a></td> <td>partNo</td> 
-				<td><a href='?adminpage=1&orderby=location'>location</a></td> <td>duration</td> <td>wiredMic</td> <td>wiredMicStand</td> <td>wirelessMic</td> 
-				<td>wirelessMicStand</td> <td>microport</td> <td>fieldMic</td> <td>instMic</td> <td>chair</td> <td>musicFile</td> <td>projectorFile</td> 
-				<td>lightRequest</td> <td>email</td> <td>particUsers</td> <td>piano</td> <td>jack63</td> <td>jack35</td> <td>musicStand</td> <td>guitarAmp</td> 
-				<td>comment</td> <td>dateOfReg</td> <td>deleted</td> <td>uniqueTimeStamp</td>
+				<td><a href='?adminpage=1&orderby=id'>id</a></td> <td>regStudID</td> <td>title</td> <td><a href='?adminpage=1&orderby=category'>category</a></td> 
+				<td>partNo</td> <td><a href='?adminpage=1&orderby=location'>location</a></td> <td>duration</td> <td>wiredMic</td> <td>wiredMicStand</td> 
+				<td>wirelessMic</td> <td>wirelessMicStand</td> <td>microport</td> <td>fieldMic</td> <td>instMic</td> <td>chair</td> <td>musicFile</td> 
+				<td>projectorFile</td> <td>lightRequest</td> <td>email</td> <td>particUsers</td> <td>piano</td> <td>jack63</td> <td>jack35</td> <td>musicStand</td> 
+				<td>guitarAmp</td> <td>comment</td> <td>dateOfReg</td> <td>deleted</td> <td>uniqueTimeStamp</td>
 				</tr>" .$resultField. "</table>");
 		
 	}
@@ -405,7 +411,6 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 		header("Location: logout.php");
 		exit;
 	}
-
 }
 else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here the user (with the appropriate access level) can edit the choosen performance
 {
@@ -422,8 +427,14 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 	}
 	$result->free();
 
-	$selected = $rows[0]["category"];
-	$chechked = $rows[0]["location"];
+	if ($rows[0]["lightRequest"] == 1)
+	{
+		$lightRequestChecked = "checked";
+	}
+	else 
+	{
+		$lightRequestChecked = "";
+	}
 	#######the registration form to edit values
 		echo("
 		<div class='navbar navbar-warning'>
@@ -446,7 +457,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 
 		<div class='jumbotron col-lg-12'>
 
-			<form action='theme/illyesnapok/perfReg.php?edit' id='regForm' class='form-horizontal' method='POST'>
+			<form action='theme/illyesnapok/perfReg.php?edit&id=".$rows[0]["id"]."' id='regForm' class='form-horizontal' method='POST'>
 				<fieldset>
 					<legend>Általános információk</legend>
 
@@ -462,43 +473,16 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 						<div class='col-lg-4'>
 							<input id='partNo' class='form-control' name='partNo' type='number' min='1' max='700' size='3' value='" .$rows[0]["partNo"]. "'>
 						</div>
-					</div>");
-					?>
+					</div>
+					
 
 					<div class='form-group'>
 						<label for='category' class='col-lg-2 control-label'>Kategória</label>
 						<div class='col-lg-4'>
-							<select class='form-control' id='category' name='category' require='require'>
-								<optgroup label='Ének-zene'>
-									<optgroup label='&nbsp;- Könnyűzene'>
-										<option <?php if($selected == 'Könnyűzene - Egyéni vagy duó'){echo("selected");}?> >&nbsp;Könnyűzene - Egyéni vagy duó</option>
-										<option <?php if($selected == 'Könnyűzene - Csoportos'){echo("selected");}?> >&nbsp;Könnyűzene - Csoportos</option>
-										<option <?php if($selected == 'Könnyűzene - Zenekar'){echo("selected");}?> >&nbsp;Könnyűzene - Zenekar</option>
-										<option <?php if($selected == 'Könnyűzene - Osztályének'){echo("selected");}?> >&nbsp;Osztályének</option>
-									</optgroup>
-									<optgroup label='&nbsp;- Komolyzene'>
-										<option <?php if($selected == 'Komolyzene - Egyéni vagy duó'){echo("selected");}?> >&nbsp;Komolyzene - Egyéni vagy duó</option>
-										<option <?php if($selected == 'Komolyzene - Csoportos'){echo("selected");}?> >&nbsp;Komolyzene - Csoportos</option>
-									</optgroup>
-								</optgroup>
-								<optgroup label='Vers és próza'>
-										<option <?php if($rows[0]["category"] == " Vers"){echo("selected");}?> >&nbsp;Vers</option>
-										<option <?php if($selected == 'Próza'){echo("selected");}?> >&nbsp;Próza</option>
-								</optgroup>
-								<optgroup label='Egyéb'>
-										<option <?php if($selected == 'Egyéb - Videó'){echo("selected");}?> >&nbsp;Egyéb - Videó</option>
-										<option <?php if($selected == 'Egyéb - Jelenet'){echo("selected");}?> >&nbsp;Egyéb - Jelenet</option>
-										<option <?php if($selected == 'Egyéb'){echo("selected");}?> >&nbsp;Egyéb</option>
-									<optgroup label='&nbsp;- Tánc'>
-										<option <?php if($selected == 'Tánc - Egyéni vagy párban'){echo("selected");}?> >&nbsp;Tánc - Egyéni vagy párban</option>
-										<option <?php if($selected == 'Tánc - Csoportos'){echo("selected");}?> >&nbsp;Tánc - Csoportos</option>
-										<option <?php if($selected == 'Osztálytánc'){echo("selected");}?> >&nbsp;Osztálytánc</option>
-									</optgroup>
-								</optgroup>
-							</select>
+							<input type='text' class='form-control' name='category' value='" .$rows[0]["category"]. "'>
 						</div>
 					</div>
-					<?php echo("
+					
 					<div class='form-group'>
 						<label for='duration' class='col-lg-2 control-label'>Produkció hossza</label>
 						<div class='col-lg-4 input-group'>
@@ -508,18 +492,9 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 					</div>
 
 					<div class='form-group'>
-						<label class='col-lg-2 control-label'>Helyszín</label>
+						<label for='location' class='col-lg-2 control-label'>Helyszín</label>
 						<div class='col-lg-4'>
-							<div class='radio radio-primary'>
-								<label>
-									<input name='location' type='radio' value='szinpad' checked>Színpad
-								</label>
-							</div>
-							<div class='radio radio-primary'>
-								<label>
-									<input name='location' type='radio' value='aula'>Aula
-								</label>
-							</div>
+							<input type='text' class='form-control' name='location' value='" .$rows[0]["location"]. "'>
 						</div>
 					</div>
 				</fieldset>
@@ -614,30 +589,16 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 					</div>
 
 					<div class='form-group'>
-						<label for='ifMusicFile' class='col-lg-2 control-label'>Lejátszandó zenefájl</label>
-						<div class='col-lg-1 checkbox' id='ifMusicFile'>
-							<label>
-								<input name='ifMusicFile' type='checkbox' value='yes'>
-								 Van
-							</label>
-						</div>
 						<label for='musicFile' class='col-lg-2 control-label'>Fájl(ok) neve</label>
 						<div class='col-lg-4'>
-							<input id='musicFile' class='form-control' name='musicFile' type='text' size='30'>
+							<input id='musicFile' class='form-control' name='musicFile' type='text' size='30' value='" .$rows[0]["musicFile"]. "'>
 						</div>
 					</div>
 
 					<div class='form-group'>
-						<label for='ifProjector' class='col-lg-2 control-label'>Projektor</label>
-						<div class='col-lg-1 checkbox' id='ifProjector'>
-							<label>
-								<input name='ifProjector' type='checkbox' value='yes'>
-								 Kell
-							</label>
-						</div>
 						<label for='projectorFile' class='col-lg-2 control-label'>Kivetítendő fájl(ok) neve</label>
 						<div class='col-lg-4'>
-							<input id='projectorFile' class='form-control' name='projectorFile' type='text' size='30'>
+							<input id='projectorFile' class='form-control' name='projectorFile' type='text' size='30' value='" .$rows[0]["projectorFile"]. "'>
 						</div>
 					</div>
 
@@ -645,7 +606,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 						<label for='lightRequest' class='col-lg-2 control-label'>Külön fénytechinkai igény</label>
 						<div class='col-lg-10 checkbox' id='lightRequest'>
 							<label>
-								<input name='ifExtraLight' type='checkbox' value='yes'>
+								<input name='ifExtraLight' type='checkbox' value='yes' ".$lightRequestChecked.">
 								 Van - Az egyéb kéréshez is írhatod, vagy meg is kereshetsz vele minket!
 							</label>
 						</div>
@@ -698,7 +659,6 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 		</div>");
 
 	#######
-
 }
 else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 3) 	#DELETE - here the user (with the appropriate access level) can delete the choosen performance
 {
@@ -726,6 +686,194 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 3) 	#DELETE - here 
 		$stmt->close();
 	}
 }	
+else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 4)		#PASSWORDS - here the user (only with admin rights) can give new passwords for users who forgotten it
+{
+	if (!include("include/cookiecheck.php"))
+	{
+		header("Location: logout.php");
+		exit;
+	}
+
+	####checks if the user has the access level to change passwords
+	if ($user["accessLevel"] > 1)		#the user does not have the access level
+	{
+		header("Location: logout.php");
+		exit;
+	}
+
+	echo("
+		<div class='navbar navbar-warning'>
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+			</div>
+			<div class='navbar-collapse collapse navbar-warning-collapse'>
+				<ul class='nav navbar-nav navbar-right'>
+					<li>
+						<a href='?adminpage=1'>Vissza</a>
+					</li>
+					<li>
+						<a href='logout.php'>Kijelentkezés</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2 class='well'>Köszöntünk a honlap admin felületén, " .$user["firstName"]. "!  Az alábbi űrlapon tudod az elfelejtett jelszót megváltoztatni.</h2>
+
+
+		<input type='text' id='displayUser-q'> <a href='#' onClick='displayUser()'>Mutat</a>
+		<div id='password-edit-hintField'>
+		</div>
+		");
+}
+else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the user (only with admin rights after separate login) can run sql queries
+{
+	if (!include("include/cookiecheck.php"))
+	{
+		header("Location: logout.php");
+		exit;
+	}
+
+	####checks if the user has the access level to the SQL panel
+	if ($user["accessLevel"] > 1)		#the user does not have the access level
+	{
+		header("Location: logout.php");
+		exit;
+	}
+
+	$sqlPass = "fd29c6f5fa4b58938829b46f91f7ca9b49643fc6";
+
+	if (isset($_POST["sqlPswrd"]))		#if got a password from the sql panel's login form
+	{
+		if (sha1(res($_POST["sqlPswrd"])) == $sqlPass)
+		{
+			setcookie("sql", sha1($sqlPass), time() + 300);
+			header("Location: index.php?adminpage=5");
+			exit;
+		}
+		else
+		{
+			setcookie("sql", "", time() - 1800);
+			header("Location: index.php?adminpage=5");
+			exit;
+		}
+	}
+
+	if (!isset($_GET["query"]) AND !isset($_COOKIE["sql"]))		#no query were sent, no sql authentication cookie exists - the sql panel's login form
+	{
+		echo("
+			<div class='navbar navbar-warning'>
+				<div class='navbar-header'>
+					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+				</div>
+				<div class='navbar-collapse collapse navbar-warning-collapse'>
+					<ul class='nav navbar-nav navbar-right'>
+						<li>
+							<a href='?adminpage=1'>Vissza</a>
+						</li>
+						<li>
+							<a href='logout.php'>Kijelentkezés</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 class='well'>Köszöntünk a honlap admin felületén, " .$user["firstName"]. "!  Az alábbi űrlapon SQL lekérdezéseket futtathatsz.</h2>
+
+			<form action='index.php?adminpage=5' method='POST'>
+				<h3>Az SQL panel eléréséhez külön be kell jelentkezned.</h3>
+				<input type='password' name='sqlPswrd'>
+				<input type='submit' value='Bejelentkezés'>
+			</form>
+			");
+	}
+	if (!isset($_GET["query"]) AND isset($_COOKIE["sql"])) 		#no query were sent, sql authentication cookie exists, checks if the authentication is correct
+	{
+		if ($_COOKIE["sql"] == sha1($sqlPass))		#if the authentication is correct
+		{
+			setcookie("sql", sha1($sqlPass), time() + 180);
+
+			echo("
+			<div class='navbar navbar-warning'>
+				<div class='navbar-header'>
+					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+				</div>
+				<div class='navbar-collapse collapse navbar-warning-collapse'>
+					<ul class='nav navbar-nav navbar-right'>
+						<li>
+							<a href='?adminpage=1'>Vissza</a>
+						</li>
+						<li>
+							<a href='logout.php'>Kijelentkezés</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 class='well'>Köszöntünk a honlap admin felületén, " .$user["firstName"]. "!  Az alábbi űrlapon SQL lekérdezéseket futtathatsz.</h2>
+
+			<form action='index.php?adminpage=5&query' method='POST' id='sqlQueryForm'>
+				<h3>Az sql panellen futtatott parancsok végzetes kárt okozhatnak az adatbázisban, annak adataiban és szerkezetében!</h3>
+				<textarea name='queryText' form='sqlQueryForm'></textarea>
+				<input type='submit' value='Futtatás'>
+			</form>
+			");
+
+
+		}
+		else 		#if the authentication is not correct
+		{
+			setcookie("sql", "", time() - 1800);
+			header("Location: index.php?adminpage=5");
+			exit;
+		}
+	}
+	if (isset($_GET["query"]) AND isset($_COOKIE["sql"]))		#query were sent, sql authentication cookie exists, if the authentication is correct runs the query
+	{
+		if ($_COOKIE["sql"] == sha1($sqlPass))		#if the authentication is correct, runs the query
+		{
+			setcookie("sql", sha1($sqlPass), time() + 180);
+
+			echo("
+			<div class='navbar navbar-warning'>
+				<div class='navbar-header'>
+					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+				</div>
+				<div class='navbar-collapse collapse navbar-warning-collapse'>
+					<ul class='nav navbar-nav navbar-right'>
+						<li>
+							<a href='?adminpage=1'>Vissza</a>
+						</li>
+						<li>
+							<a href='logout.php'>Kijelentkezés</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<h2 class='well'>Köszöntünk a honlap admin felületén, " .$user["firstName"]. "!  Az alábbi űrlapon SQL lekérdezéseket futtathatsz.</h2>
+			");
+
+			$queryText = $_POST["queryText"];
+			if ($stmt = $db->prepare($queryText)) {} else {die($db->error);}
+			if ($stmt->execute()) {} else {die($db->error);}
+
+			$result = $stmt->get_result();
+			$stmt->close();
+################################################################################
+################################################################################
+################################################################################
+################################################################################
+
+		}
+		else 		#if the authentication is not correct
+		{
+			setcookie("sql", "", time() - 1800);
+			header("Location: index.php?adminpage=5");
+			exit;
+		}
+	}
+}
 else 	#every other cases are invalid links --> logging out for security reasons 
 {
 	header("Location: logout.php");

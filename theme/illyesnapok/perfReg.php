@@ -36,11 +36,13 @@ $musicFile = $_POST["musicFile"];
 $projectorFile = $_POST["projectorFile"];
 if(isset($_POST["ifMusicFile"])) {$ifMusicFile = 1;} else {$musicFile = "NO";}
 if(isset($_POST["ifProjector"])) {$ifProjector = 1;} else {$projectorFile = "NO";}
-if(isset($_POST["lightRequest"])) {$lightRequest = 1;} else {$lightRequest = 0;}
+if(isset($_POST["ifExtraLight"])) {$lightRequest = 1;} else {$lightRequest = 0;}
 $email = $_POST["email"];
 $particUsers = $_POST["particUsers"];
 $comment = $_POST["comment"];
 $dateOfReg = date("Y-m-d");
+
+$uniqueTimeStamp = 123456789;
 
 
 
@@ -65,12 +67,32 @@ if (!isset($_GET["edit"]))
 	}
 
 	$stmt->close();
+
+	header("Refresh: 3; url=../../");
+	exit;
 }
 else if (isset($_GET["edit"]))
 {
-	
+	if ($stmt = $db->prepare("UPDATE performances SET title=?, partNo=?, category=?, duration=?, location=?, wiredMic=?, wiredMicStand=?, wirelessMic=?,
+		wirelessMicStand=?, microport=?, fieldMic=?, instMic=?, jack63=?, jack35=?, guitarAmp=?, piano=?, musicStand=?, chair=?, musicFile=?, projectorFile=?,
+		lightRequest=?, email=?, particUsers=?, comment=?, uniqueTimeStamp=? WHERE id=?")) {} else {die($db->error);}
+	$stmt->bind_param("sisisiiiiiiiiiiiiissssssii", $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic, $wirelessMicStand,
+		$microport, $fieldMic, $instMic, $jack63, $jack35, $guitarAmp, $piano, $musicStand, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers,
+		$comment, $uniqueTimeStamp, $_GET["id"]);
+	if ($stmt->execute())
+	{
+		echo ("<p>Sikeresenen szerkesztetted a produkciót.</p>");
+	}
+	else
+	{
+		echo($db->error);
+		echo ("<p>Probléma merült fel a produkció szerkkesztése közben. Kérlek, próbáld meg később!</p>");
+	}
+	$stmt->close();
+	$id = res($_GET["id"]);
+	header("Refresh: 3; url=../../?adminpage=2&id=$id");
+	exit;
 }
-header("Refresh: 3; url=../../");
-exit;
+
 
 ?>

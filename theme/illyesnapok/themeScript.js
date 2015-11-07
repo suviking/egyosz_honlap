@@ -54,3 +54,30 @@ function addUser(str)
   document.getElementById("addedUserField").focus();
   showUser("");
 }
+
+function displayUser()
+{
+  str = document.getElementById("displayUser-q").value;
+
+  if (window.XMLHttpRequest) 
+  {
+    // code for IE7+, Firefox, Chrome, Opera, Safari
+    xmlhttp = new XMLHttpRequest();
+  } 
+  else 
+  {  // code for IE6, IE5
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+
+  xmlhttp.onreadystatechange = function() 
+  {
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+    {
+      document.getElementById("password-edit-hintField").innerHTML = xmlhttp.responseText;
+    }
+  }
+
+  xmlhttp.open("GET","theme/illyesnapok/newPswrd.php?q="+str,true);
+  xmlhttp.send();
+}
