@@ -12,6 +12,7 @@ if (!include("include/cookiecheck.php"))
 
 if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes directly to the registration form
 {
+	$adminLink = "";
 
 	if ($user["accessLevel"] < 4) 	#checks if the user has the right to access the admin page and if it does the program creates a link to there
 	{
@@ -315,7 +316,9 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 
 		require("include/head.php");
 
-		if ($user["accessLevel"] == 0)
+		$adminLink = "";
+
+		if ($user["accessLevel"] == 0 )
 		{
 			$adminLink = "	<li><a href='index.php?adminpage=4'>Jelszavak kezelése</a></li>
 							<li><a href='index.php?adminpage=5'>SQL</a></li>";
@@ -354,10 +357,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			$orderby = "id";
 		}
 
-		$stmt = $db->prepare("SELECT * FROM performances WHERE deleted=0 ORDER BY $orderby ASC") OR die($db->error);
-		$stmt->execute() OR die($db->error);
-		$result = $stmt->get_result();
-		$stmt->close();
+		$result = $db->query("SELECT * FROM performances WHERE deleted=0 ORDER BY $orderby ASC") OR die($db->error);
 
 		$rows = array();
 		while($row = mysqli_fetch_array($result))
@@ -414,11 +414,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 }
 else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here the user (with the appropriate access level) can edit the choosen performance
 {
-	$stmt = $db->prepare("SELECT * FROM performances WHERE id = ?") OR die($db->error);
-	$stmt->bind_param("i", $_GET["id"]);
-	$stmt->execute() OR die($db->error);
-	$result = $stmt->get_result();
-	$stmt->close();
+	$result = $db->query("SELECT * FROM performances WHERE id=" .res($_GET["id"])) OR die($db->error);
 
 	$rows = array();
 	while ($row = $result->fetch_array())
@@ -782,7 +778,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the
 
 			<form action='index.php?adminpage=5' method='POST'>
 				<h3>Az SQL panel eléréséhez külön be kell jelentkezned.</h3>
-				<input type='password' name='sqlPswrd'>
+				<input type='password' name='sqlPswrd' autofocus>
 				<input type='submit' value='Bejelentkezés'>
 			</form>
 			");
@@ -814,7 +810,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the
 
 			<form action='index.php?adminpage=5&query' method='POST' id='sqlQueryForm'>
 				<h3>Az sql panellen futtatott parancsok végzetes kárt okozhatnak az adatbázisban, annak adataiban és szerkezetében!</h3>
-				<textarea name='queryText' form='sqlQueryForm'></textarea>
+				<textarea name='queryText' form='sqlQueryForm' rows='2' cols='100'></textarea>
 				<input type='submit' value='Futtatás'>
 			</form>
 			");
@@ -852,19 +848,41 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the
 			</div>
 
 			<h2 class='well'>Köszöntünk a honlap admin felületén, " .$user["firstName"]. "!  Az alábbi űrlapon SQL lekérdezéseket futtathatsz.</h2>
+
+			<form action='index.php?adminpage=5&query' method='POST' id='sqlQueryForm'>
+				<h3>Az sql panellen futtatott parancsok végzetes kárt okozhatnak az adatbázisban, annak adataiban és szerkezetében!</h3>
+				<textarea name='queryText' form='sqlQueryForm' rows='2' cols='100'></textarea>
+				<input type='submit' value='Futtatás'>
+			</form>
 			");
 
 			$queryText = $_POST["queryText"];
-			if ($stmt = $db->prepare($queryText)) {} else {die($db->error);}
-			if ($stmt->execute()) {} else {die($db->error);}
+			
 
-			$result = $stmt->get_result();
-			$stmt->close();
-################################################################################
-################################################################################
-################################################################################
-################################################################################
+			$result = $db->query($queryText);
 
+			if (gettype($result) == "object")
+			{
+				$rows = array();
+				while ($row = $result->fetch_assoc())
+				{
+					$rows[] = $row;
+				}
+				print_r($rows);
+				$result->free();
+			}
+			else
+			{
+				if ($result == 1)
+				{
+					print("A lekérdezés sikeresen lefutott!");
+				}
+				else
+				{
+					print("A lekérdezés végrehajtása közben hiba merült fel.</br>");
+					print_r($db->error);
+				}
+			}
 		}
 		else 		#if the authentication is not correct
 		{

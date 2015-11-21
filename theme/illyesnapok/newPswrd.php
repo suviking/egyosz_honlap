@@ -5,17 +5,15 @@ if (!include("../../include/cookiecheck.php"))
 	header("Location: ../../logout.php");
 }
 
+
 echo("<html><head><meta charset='UTF-8' /></head><body>");
 
 if (!isset($_GET["newPswrd"]))
 {
-	$q = nameString($_GET["q"]);
+	$q = nameString(res($_GET["q"]));
 
-	if ($stmt = $db->prepare("SELECT * FROM students WHERE username = ?")) {} else {die($db->error);}
-	$stmt->bind_param("s", $q);
-	if ($stmt->execute()) {} else {die($db->error);}
-	$result = $stmt->get_result();
-	$stmt->close();
+	$result = $db->query("SELECT * FROM students WHERE username = '" .$q. "'") OR die($db->error);
+
 
 	$rows = array();
 	while($row = $result->fetch_array())

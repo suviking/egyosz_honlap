@@ -15,7 +15,7 @@ Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem ad
 ";*/
 
 $bottomLineText = "Készítő és üzemeltető: Süvegh Dávid - Design: Gergály Benedek <br>
-	Az üzemeltetők ügyelnek a rendszerben tárol adatok biztonságára és nem adják ki azokat harmadik félnek.";
+	Az üzemeltetők ügyelnek a rendszerben tárolt adatok biztonságára és nem adják ki azokat harmadik félnek.";
 
 //THEME SPECIFIC VARIABLES
 
