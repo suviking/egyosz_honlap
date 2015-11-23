@@ -13,7 +13,7 @@ $q = nameString($q);
 
 $hintSearchResult = $db->query("SELECT firstName, fullname, class, username FROM students");
 $rows = array();
-while ($row = $hintSearchResult->fetch_assoc()) 
+while ($row = $hintSearchResult->fetch_assoc())
 {
 	$rows[] = $row;
 }
@@ -41,7 +41,7 @@ else
 
 if ($hint == "")
 {
-	$hint = "no suggestion";
+	$hint = "Nincs találat!";
 }
 
 echo ($hint);

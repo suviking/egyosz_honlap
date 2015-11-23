@@ -1,33 +1,33 @@
-function showUser(str) 
+function showUser(str)
 {
   var realstrarr = str.split(";");
   var realstr = realstrarr[realstrarr.length - 1];
 
 
-  if (realstr.length == 0) 
-  { 
+  if (realstr.length == 0)
+  {
     document.getElementById("hintField").innerHTML="";
-    document.getElementById("hintField").style.border="0px";
+    document.getElementById("hintField").style.visibility="hidden";
     return;
   }
 
-  if (window.XMLHttpRequest) 
+  if (window.XMLHttpRequest)
   {
     // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp = new XMLHttpRequest();
-  } 
-  else 
+  }
+  else
   {  // code for IE6, IE5
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
 
 
-  xmlhttp.onreadystatechange = function() 
+  xmlhttp.onreadystatechange = function()
   {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
     {
       document.getElementById("hintField").innerHTML = xmlhttp.responseText;
-      document.getElementById("hintField").style.border = "1px solid #A5ACB2";
+      document.getElementById("hintField").style.visibility="visible";
     }
   }
 
@@ -59,20 +59,20 @@ function displayUser()
 {
   str = document.getElementById("displayUser-q").value;
 
-  if (window.XMLHttpRequest) 
+  if (window.XMLHttpRequest)
   {
     // code for IE7+, Firefox, Chrome, Opera, Safari
     xmlhttp = new XMLHttpRequest();
-  } 
-  else 
+  }
+  else
   {  // code for IE6, IE5
     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
   }
 
 
-  xmlhttp.onreadystatechange = function() 
+  xmlhttp.onreadystatechange = function()
   {
-    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+    if (xmlhttp.readyState == 4 && xmlhttp.status == 200)
     {
       document.getElementById("password-edit-hintField").innerHTML = xmlhttp.responseText;
     }

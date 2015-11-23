@@ -16,7 +16,7 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 
 	if ($user["accessLevel"] < 4) 	#checks if the user has the right to access the admin page and if it does the program creates a link to there
 	{
-		$adminLink = 
+		$adminLink =
 		"<li>
 			<a href='?adminpage=1'>Admin felület</a>
 		</li>";
@@ -267,13 +267,12 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 					<br>
 
 					<div class='form-group'>
-						<label for='userSearch' class='col-lg-2 control-label'>Résztvevők hozzáadása</label>
-						<div class='col-lg-4'>
-							<p>Osztálytánc és osztályének esetén nem kell kitölteni, elég a résztvevők számát beírni fenn</p>
-							<div id='hintField' style='' class='well'></div>
-						</div>
+						<label for='userSearch' class='col-lg-2 control-label'>Résztvevők hozzáadása (Osztályprodukciónál nem kell kitölteni!)</label>
 						<div class='col-lg-6'>
 							<textarea class='form-control' form='regForm' name='particUsers' rows='5' maxlength='10000' id='addedUserField' onKeyUp='showUser(this.value)'></textarea>
+						</div>
+						<div class='col-lg-4'>
+							<div id='hintField' style='visibility:hidden' class='well'></div>
 						</div>
 					</div>
 
@@ -394,17 +393,17 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			}
 		}
 			echo("<table><tr>
-				<td><a href='?adminpage=1&orderby=id'>id</a></td> <td>regStudID</td> <td>title</td> <td><a href='?adminpage=1&orderby=category'>category</a></td> 
-				<td>partNo</td> <td><a href='?adminpage=1&orderby=location'>location</a></td> <td>duration</td> <td>wiredMic</td> <td>wiredMicStand</td> 
-				<td>wirelessMic</td> <td>wirelessMicStand</td> <td>microport</td> <td>fieldMic</td> <td>instMic</td> <td>chair</td> <td>musicFile</td> 
-				<td>projectorFile</td> <td>lightRequest</td> <td>email</td> <td>particUsers</td> <td>piano</td> <td>jack63</td> <td>jack35</td> <td>musicStand</td> 
+				<td><a href='?adminpage=1&orderby=id'>id</a></td> <td>regStudID</td> <td>title</td> <td><a href='?adminpage=1&orderby=category'>category</a></td>
+				<td>partNo</td> <td><a href='?adminpage=1&orderby=location'>location</a></td> <td>duration</td> <td>wiredMic</td> <td>wiredMicStand</td>
+				<td>wirelessMic</td> <td>wirelessMicStand</td> <td>microport</td> <td>fieldMic</td> <td>instMic</td> <td>chair</td> <td>musicFile</td>
+				<td>projectorFile</td> <td>lightRequest</td> <td>email</td> <td>particUsers</td> <td>piano</td> <td>jack63</td> <td>jack35</td> <td>musicStand</td>
 				<td>guitarAmp</td> <td>comment</td> <td>dateOfReg</td> <td>deleted</td> <td>uniqueTimeStamp</td>
 				</tr>" .$resultField. "</table>");
-		
+
 	}
 	else if ($user["accessLevel"] == 3)	#case of the user is a headteacher, only can see the performances in its own class, accessLevel 3
 	{
-		
+
 	}
 	else 		#user is not an admin
 	{
@@ -427,7 +426,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 	{
 		$lightRequestChecked = "checked";
 	}
-	else 
+	else
 	{
 		$lightRequestChecked = "";
 	}
@@ -470,7 +469,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 							<input id='partNo' class='form-control' name='partNo' type='number' min='1' max='700' size='3' value='" .$rows[0]["partNo"]. "'>
 						</div>
 					</div>
-					
+
 
 					<div class='form-group'>
 						<label for='category' class='col-lg-2 control-label'>Kategória</label>
@@ -478,7 +477,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 2) 	#EDIT - here th
 							<input type='text' class='form-control' name='category' value='" .$rows[0]["category"]. "'>
 						</div>
 					</div>
-					
+
 					<div class='form-group'>
 						<label for='duration' class='col-lg-2 control-label'>Produkció hossza</label>
 						<div class='col-lg-4 input-group'>
@@ -681,7 +680,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 3) 	#DELETE - here 
 		}
 		$stmt->close();
 	}
-}	
+}
 else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 4)		#PASSWORDS - here the user (only with admin rights) can give new passwords for users who forgotten it
 {
 	if (!include("include/cookiecheck.php"))
@@ -857,7 +856,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the
 			");
 
 			$queryText = $_POST["queryText"];
-			
+
 
 			$result = $db->query($queryText);
 
@@ -892,7 +891,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 5)		#SQL - here the
 		}
 	}
 }
-else 	#every other cases are invalid links --> logging out for security reasons 
+else 	#every other cases are invalid links --> logging out for security reasons
 {
 	header("Location: logout.php");
 	exit;

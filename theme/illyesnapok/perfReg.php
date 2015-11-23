@@ -10,8 +10,23 @@ echo(
 		<meta charset='UTF-8' />
 		<title>Illyésnapok</title>
 		<link rel='shortcut icon' href='../../style/favicon.ico' />
+
+		<link rel='stylesheet' href='../../bootstrap/css/bootstrap.css'>
+		<link rel='stylesheet' href='../../bootstrap/material/css/material-fullpalette.css'>
+		<link rel='stylesheet' href='../../bootstrap/material/css/ripples.css'>
+		<link rel='stylesheet' href='../../bootstrap/material/css/roboto.css'>
+		<link rel='stylesheet' href='../../style/custom_bootstrap.css'>
+
+		<script type='text/javascript' src='../../js/jquery-2.1.4.min.js'></script>
+		<script type='text/javascript' src='../../js/init.js'></script>
+		<script type='text/javascript' src='../../bootstrap/js/bootstrap.js'></script>
+		<script type='text/javascript' src='../../bootstrap/material/js/material.js'></script>
+		<script type='text/javascript' src='../../bootstrap/material/js/ripples.js'></script>
+
+		<script src='./themeScript.js'></script>
 	</head>
 	");
+
 
 $regStudID = $user["id"];
 $title = $_POST["title"];
@@ -49,26 +64,34 @@ $uniqueTimeStamp = 123456789;
 if (!isset($_GET["edit"]))
 {
 	if ($stmt = $db->prepare(
-		"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg) 
+		"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg)
 		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {die($db->error);}
 
-	$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic, 
-		$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35, 
+	$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic,
+		$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35,
 		$musicStand, $guitarAmp, $comment, $dateOfReg);
 
 	if($stmt->execute())
 	{
-		echo("<p>Jelentkezésedet fogadtuk. Kellemes felkészülést és sok sikert a produkciódhoz! :) </p>");
+		echo"
+			<div class='alert alert-success'>
+				<h3>Jelentkezésedet fogadtuk. Kellemes felkészülést és sok sikert a produkciódhoz! :)</h3>
+			</div>
+		";
 	}
 	else
 	{
 		echo($db->error);
-		echo("<p>Probléma merült fel a jelentkezésed elküldése közben. Kérlek, ismételd meg később!</p>");
+		echo"
+			<div class='alert alert-danger'>
+				<h3>Probléma merült fel a jelentkezésed elküldése közben. Kérlek, ismételd meg később!</h3>
+			</div>
+		";
 	}
 
 	$stmt->close();
 
-	header("Refresh: 3; url=../../");
+	header("Refresh: 5; url=../../");
 	exit;
 }
 else if (isset($_GET["edit"]))
@@ -81,16 +104,24 @@ else if (isset($_GET["edit"]))
 		$comment, $uniqueTimeStamp, $_GET["id"]);
 	if ($stmt->execute())
 	{
-		echo ("<p>Sikeresenen szerkesztetted a produkciót.</p>");
+		echo"
+			<div class='alert alert-success'>
+				<h3>Sikeresenen szerkesztetted a produkciót.</h3>
+			</div>
+		";
 	}
 	else
 	{
 		echo($db->error);
-		echo ("<p>Probléma merült fel a produkció szerkkesztése közben. Kérlek, próbáld meg később!</p>");
+		echo"
+			<div class='alert alert-danger'>
+				<h3>Probléma merült fel a produkció szerkkesztése közben. Kérlek, próbáld meg később!</h3>
+			</div>
+		";
 	}
 	$stmt->close();
 	$id = res($_GET["id"]);
-	header("Refresh: 3; url=../../?adminpage=2&id=$id");
+	header("Refresh: 5; url=../../?adminpage=2&id=$id");
 	exit;
 }
 

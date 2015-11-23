@@ -188,7 +188,7 @@ else	//if the user did not try to log in, the default login form
 				</form>
 			</div>
 
-			<footer class='footer well'>
+			<footer class='footer'>
 				<p class='text-center'>$bottomLineText</p>
 			</footer>
 
