@@ -179,7 +179,7 @@ else	//if the user did not try to log in, the default login form
 							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév'>
 						</div>
 						<div class='form-group'>
-							<input class='form-control floating-label' type='password' name='password' placeholder='Jelszó'>
+							<input class='form-control floating-label' type='password' name='password' placeholder='OM azonosító'>
 						</div>
 						<div class='form-group'>
 							<button type='submit' class='btn btn-primary'>Jelentkezés</button>
