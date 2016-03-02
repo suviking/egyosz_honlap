@@ -7,73 +7,46 @@ if (!include("include/cookiecheck.php"))
 	exit;
 }
 
-
-echo("<div align='center'><img src='style/" .$theme. "/head_line.png'></div>
-		<hr align='center'size='10' width='816px'>
-
-		<table id='deftable' cellspacing='0' cellpadding='0' align='center'>
-			<tr background='style/top_line.png' style='height:32px;'>
-				<td style='text-align: left' id='signInText'>Köszöntünk az oldalon, " .$user["lastName"]. " " .$user["firstName"]. "!</td>
-				<td style='text-align: right' id='signInText'><a href='logout.php'>Kijelentkezés</a></td>
-			</tr>
-			<tr>
-				<td colspan='2' id='introText'><h3>Itt kell jelentkezned a különböző sávok előadásaira.</h3><br/></td>
-			</tr>
-			");
-
-
-for ($i=0; $i < $timelineNumber; $i++)
+if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes directly to the registration form
 {
+	$adminLink = "";
 
-	if ($result = $db->query("SELECT * FROM programregistration WHERE studentID = " . $user['id'] . " AND timeline = " . ($i+1)))
+	if ($user["accessLevel"] < 4) 	#checks if the user has the right to access the admin page and if it does the program creates a link to there
 	{
-		if ($result->num_rows == 1) //if the user registrated to somewhere in the "i"th timeline
-		{
-			$programID = $result->fetch_assoc()["programID"];
-			$progRes = $db->query("SELECT * FROM programs WHERE programID = " . $programID . " ");
-			$program = $progRes->fetch_assoc();
-
-			echo("
-					<tr class='reg'>
-						<td colspan='2'><div><b>" . ($i+1) . ". sáv</b></div></td>
-					</tr>
-
-					<tr class='reg'>
-						<td colspan='2'><div id='nd'><a href='#'>" . $program['programName'] . " - Módosításhoz kattintson ide!</a></div></td>
-					</tr>
-					<tr><td colspan='2' style='height: 30px;'></td></tr>
-				");
-		}
-		else //if the "i"th timeline is empty, the user did not registrated yet
-		{
-			echo("
-					<tr class='unreg'>
-						<td colspan='2'><div><b>" . ($i+1) . ". sáv</b></div></td>
-					</tr>
-
-					<tr class='unreg'>
-						<td colspan='2'><div id='un_nd'><a href='registration.php?l=" .($i+1). "'>
-							Még nem jelentkeztél előadásra ebben a sávban. - A jelentkezéshez kattintson ide!
-						</a></div></td>
-					</tr>
-					<tr><td colspan='2' style='height: 30px;'></td></tr>
-				");
-		}
-		$result->free();
+		$adminLink =
+		"<li>
+			<a href='?adminpage=1'>Admin felület</a>
+		</li>";
 	}
+	if ($user["accessLevel"] == 3 OR $user["accessLevel"] == 2)	#if the user not a student but not an admin - redirect to adminpage
+	{
+		header("Location: ?adminpage=1");
+		exit;
+	}
+	$dateNow = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+	if ($user["accessLevel"] == 4 AND $dateNow > $deadLineDate)	#if the user is a student and the deadline is over - registration forbidden
+	{
+		echo "
+		<div class='navbar navbar-warning'>
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+			</div>
+			<div class='navbar-collapse collapse navbar-warning-collapse'>
+				<ul class='nav navbar-nav navbar-right'>
+					" .$adminLink. "
+					<li>
+						<a href='logout.php'>Kijelentkezés</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "! A jelenzkezési határidő lejárt. Mostmár nem tudsz jelentkezni.</h2>";
+		exit;
+	}
+
+
 }
-
-echo("
-		<tr id='bottom_line'>
-				<td colspan='2'>
-					" .$bottomLineText. "
-				</td>
-		</tr>
-	</table>");
-
-
-
-
 
 exit;
 ?>

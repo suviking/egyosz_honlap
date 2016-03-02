@@ -1,12 +1,13 @@
 <?php
 
-$maintitle = "Illyés-napok 2015";
-$date = mktime(0,0,0,12,16,2015);		// the date you want to display when the event will take place
-$deadline = "2015. 12. 05.";	// the date you want to display as the deadline of the registration
+$maintitle = "EGYOSZ Nap - 2016";
+$date = mktime(0,0,0,3,18,2016);		// the date you want to display when the event will take place
+$deadLine = "2015-12-01"."T"."12:00:00";	// the date you want to display as the deadline of the registration
+$deadLineDate = mktime(0,0,0,3,18,2015);
 
-$theme = "illyesnapok"; //you can choose from: "illyesnapok"; "egyosznap"; "tanarertekeles"
+$theme = "egyosznap"; //you can choose from: "illyesnapok"; "egyosznap"; "tanarertekeles"
 $welcomeText = "Köszöntünk az Egyosz oldalán!";
-$description = "Idén is, mint azt már megszokhattátok, az interneten kell regisztrálnotok az Illyés-napi produkcióitokat.";
+$description = "Idén is, mint azt már megszokhattátok, az interneten kell regisztrálnotok az EGYOSZ Nap-i előadásokra.";
 
 /*$bottomLineText = "
 <p><b>". $maintitle ." - Jelentkezési rendszer </b> <br/>
@@ -20,7 +21,7 @@ $bottomLineText = "Készítő és üzemeltető: Süvegh Dávid - Design: Gergál
 //THEME SPECIFIC VARIABLES
 
 	//egyosznap
-		$timelineNumber = 2; //gives that how many timeline should the program handle
+		$timelineNumber = 1; //gives that how many timeline should the program handle
 
 	//illyesnapok
 

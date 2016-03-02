@@ -26,6 +26,27 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 		header("Location: ?adminpage=1");
 		exit;
 	}
+	$dateNow = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
+	if ($user["accessLevel"] == 4 AND $dateNow > $deadLineDate)
+	{
+		echo "
+		<div class='navbar navbar-warning'>
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+			</div>
+			<div class='navbar-collapse collapse navbar-warning-collapse'>
+				<ul class='nav navbar-nav navbar-right'>
+					" .$adminLink. "
+					<li>
+						<a href='logout.php'>Kijelentkezés</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "! A jelenzkezési határidő lejárt. Mostmár nem tudsz jelentkezni.</h2>";
+		exit;
+	}
 
 ###################################
 ###### the registration from ######
@@ -356,7 +377,9 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			$orderby = "id";
 		}
 
-		$result = $db->query("SELECT * FROM performances WHERE deleted=0 ORDER BY $orderby ASC") OR die($db->error);
+		$result = $db->query(
+			"SELECT performances.id, fullname, class, particUsers, title, category, duration, partNo, location, email, dateOfReg, comment
+			FROM students INNER JOIN performances ON students.id = performances.regStudID WHERE deleted=0 ORDER BY $orderby ASC") OR die($db->error);
 
 		$rows = array();
 		while($row = mysqli_fetch_array($result))
@@ -378,7 +401,7 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			for ($i = 0; $i < count($rows); $i++)
 			{
 				$resultField .= "<tr>";
-				for ($j = 0; $j < 29; $j++)
+				for ($j = 0; $j < 12; $j++)
 				{
 					$resultField .= "<td><input type='text' value='" .$rows[$i][$j]. "' disabled></td>";
 				}
@@ -393,11 +416,9 @@ else if (isset($_GET["adminpage"]) AND $_GET["adminpage"] == 1) 	#the DEFAULT ad
 			}
 		}
 			echo("<table><tr>
-				<td><a href='?adminpage=1&orderby=id'>id</a></td> <td>regStudID</td> <td>title</td> <td><a href='?adminpage=1&orderby=category'>category</a></td>
-				<td>partNo</td> <td><a href='?adminpage=1&orderby=location'>location</a></td> <td>duration</td> <td>wiredMic</td> <td>wiredMicStand</td>
-				<td>wirelessMic</td> <td>wirelessMicStand</td> <td>microport</td> <td>fieldMic</td> <td>instMic</td> <td>chair</td> <td>musicFile</td>
-				<td>projectorFile</td> <td>lightRequest</td> <td>email</td> <td>particUsers</td> <td>piano</td> <td>jack63</td> <td>jack35</td> <td>musicStand</td>
-				<td>guitarAmp</td> <td>comment</td> <td>dateOfReg</td> <td>deleted</td> <td>uniqueTimeStamp</td>
+				<td><a href='?adminpage=1&orderby=id'>id</a></td> <td>Név</td> <td>Osztály</td> <td>Résztvevők</td> 
+				<td>Cím</td> <td><a href='?adminpage=1&orderby=category'>Kategória</a></td> <td>Időtartam</td> <td>Résztvevők száma</td> 
+				<td><a href='?adminpage=1&orderby=location'>Helyszín</a></td> <td>E-mail</td> <td>dateOfReg</td> <td>Megjegyzés</td>
 				</tr>" .$resultField. "</table>");
 
 	}

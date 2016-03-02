@@ -12,7 +12,7 @@ if ($db->connect_errno)
 	</div>
 
 	<div class='alert alert-danger'>
-		<h3>Ne sikerült az adatbázishoz csatalakozni! Próbáld meg később vagy írj erre a címre: egyosz_admin@gmail.com (még nincs ilyen email cím)</h3>
+		<h3>Ne sikerült az adatbázishoz csatalakozni! Próbáld meg később vagy írj erre a címre: egyosz.illyes@gmail.com (még nincs ilyen email cím)</h3>
 	</div>
 	");
 }

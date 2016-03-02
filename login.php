@@ -154,6 +154,8 @@ else	//if the user did not try to log in, the default login form
 		");*/
 
 		echo "
+			<script src='js/clock.js'></script>
+
 
 			<div class='navbar navbar-warning'>
 				<div class='navbar-header'>
@@ -173,10 +175,12 @@ else	//if the user did not try to log in, the default login form
 				<div class='col-lg-8'>
 					<p>$description</p>
 				</div>
+				<div id='clock'>
+				</div>
 				<form class='col-lg-4' action='login.php' method='POST'>
 					<fieldset>
 						<div class='form-group'>
-							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév'>
+							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév' onload='initializeClock(".$deadLine.")'>
 						</div>
 						<div class='form-group'>
 							<input class='form-control floating-label' type='password' name='password' placeholder='OM azonosító'>
