@@ -45,6 +45,55 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 		exit;
 	}
 
+	#can use the registration page --> the registration page
+
+	#header starts
+	echo "	
+		<div class='navbar navbar-warning'>
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+			</div>
+			<div class='navbar-collapse collapse navbar-warning-collapse'>
+				<ul class='nav navbar-nav navbar-right'>
+					" .$adminLink. "
+					<li>
+						<a href='logout.php'>Kijelentkezés</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "! Itt tudsz regisztrálni a különböző előadásokra.</h2>";
+	#header ends
+
+
+
+
+	for ($i = 0; $i < $timelineNumber; $i++)
+	{
+		$result = $db->query("SELECT * FROM lectures INNER JOIN lecregistration ON lectures.id = lecregistration.L".($i+1)." WHERE studentId = ".$user["id"]) OR die($db->error);
+		$rows = array();
+		while($row = mysqli_fetch_array($result))
+		{
+			$rows[] = $row;
+		}
+		$result->free();
+
+		if (empty($rows))
+		{
+			echo("<table>
+				<tr> <th>".($i+1).". sáv</th> </tr>
+				<tr> <td><b>Ebben a sávban még nem jelentkeztél előadásra.</td> <th><a href='#'>Jelentkezés</th> </tr>
+				</table>");
+		}
+		else
+		{
+			echo("<table>
+					<tr> <th>".($i+1).". sáv</th> </tr>
+					<tr> <td><b>".$rows[0]["title"]."</b> - ".$rows[0]["subtitle"]."</td> <th><a href='#'>Módosítás</th> </tr>
+				</table>");
+		}
+	}
 
 }
 
