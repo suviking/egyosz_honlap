@@ -71,7 +71,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	#lists the timelines and indicates to each, if the user has selected a lecture to the timeline, and if does, which
 	for ($i = 0; $i < $timelineNumber; $i++)
 	{
-		$result = $db->query("SELECT * FROM lectures INNER JOIN lecregistration ON lectures.id = lecregistration.L".($i+1)." WHERE studentId = ".$user["id"]) OR die($db->error);
+		$result = $db->query("SELECT * FROM lectures INNER JOIN lecregistration ON lectures.id = lecregistration.L".($i+1)." WHERE studentId = ".$user["id"]) OR die();
 		$rows = array();
 		while($row = mysqli_fetch_array($result))
 		{
@@ -98,8 +98,32 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 }
 else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND intval($_GET["lectureSelect"])>0 ) #if the user wants to modify the selected lecture or wants to select
 {
-	#gets the number of the lectures in the chosen timeline
-	$result = $db->query("SELECT Count(lectures.id) FROM lectures WHERE timelineNumber = ".res($_GET["lectureSelect"]));
+	
+	#header starts
+	echo "	
+		<div class='navbar navbar-warning'>
+			<div class='navbar-header'>
+				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+			</div>
+			<div class='navbar-collapse collapse navbar-warning-collapse'>
+				<ul class='nav navbar-nav navbar-right'>
+					<li>
+						<a href='index.php'>Vissza</a>
+					</li>
+					<li>
+						<a href='logout.php'>Kijelentkezés</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "! Itt tudsz regisztrálni a különböző előadásokra.</h2>";
+	#header ends
+
+
+
+	#gets the number of the lectures in the chosen timeline as $lectureNumber
+	$result = $db->query("SELECT Count(lectures.id) FROM lectures WHERE timelineNumber = ".res($_GET["lectureSelect"])) OR die();
 	$rows = array();
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -108,15 +132,60 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	$result ->free();
 	$lectureNumber = $rows[0][0];	#how many lectures are there in the chosen timeline
 
-	#gets the ids of the selected timeline's lectures' to an array
-	$result = $db->query("SELECT id FROM lectures WHERE timelineNumber = ".res($_GET["lectureSelect"]));
+	$result = $db->query("SELECT * FROM lectures WHERE timelineNumber=" .res($_GET["lectureSelect"])) OR die();
 	$rows = array();
-	while ($row = mysqli_fetch_row($result))
+	while ($row = mysqli_fetch_array($result))
 	{
 		$rows[] = $row;
 	}
-	$result ->free();
-	print_r($rows);
+	$result->free();
+
+	$result = $db->query("SELECT changes FROM lecregistration WHERE studentId=".$user["id"]) OR die($db->error);
+	$changes = array();
+	while ($change = mysqli_fetch_array($result))
+	{
+		$changes[] = $change;
+	}
+	$result->free();
+	$change = $changes[0][0];
+
+
+
+	for ($i = 0; $i < $lectureNumber; $i++)
+	{
+		if ($rows[$i]["reserved"] < $rows[$i]["seats"] AND $changes > 0)
+		{
+		?>
+			<div>
+				<p><b> <?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
+
+				<div>
+					<p> -<?php echo $rows[$i]["subtitle"];?> </p>
+					<p> <?php echo $rows[$i]["presenter"];?> </p>
+					<p> <?php echo $rows[$i]["description"];?> </p>
+					<p><a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' >Kiválaszt</a></p>
+				</div>
+			</div>
+			</br></br>
+		<?php
+		}
+		else
+		{
+		?>
+			<div>
+				<p><b> <?php echo $rows[$i]["title"]; ?> </b> Erre az előadásra nem tudsz jelentkezni. <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
+
+				<div>
+					<p> -<?php echo $rows[$i]["subtitle"];?> </p>
+					<p> <?php echo $rows[$i]["presenter"];?> </p>
+					<p> <?php echo $rows[$i]["description"];?> </p>
+				</div>
+			</div>
+			</br></br>
+		<?php
+		}
+	}
+
 }
 else if (isset($_GET["adminpage"]))
 {

@@ -2,6 +2,7 @@
 if(!include("../../include/cookiecheck.php"))
 {
 	header("Location: ../../logout.php");
+	exit;
 }
 
 
@@ -27,6 +28,12 @@ echo(
 	</head>
 	");
 
+
+if ($user["accessLevel"] <> 2 AND $user["accessLevel"] <> 3)
+{
+	header("Location: logout.php");
+	exit;
+}
 
 
 
