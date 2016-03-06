@@ -6,7 +6,7 @@ if(!include("../../include/cookiecheck.php"))
 	exit;
 }
 
-
+#head section starts
 echo(
 	"<head>
 		<meta charset='UTF-8' />
@@ -28,20 +28,23 @@ echo(
 		<script src='./themeScript.js'></script>
 	</head>
 	");
+#head section ends
 
+#if the user olny can see all or one class's lecture selections, unauthorized access -> logput.php
 if ($user["EGYOSZaccessLevel"] == 2 AND $user["accessLevel"] == 3)
 {
 	header("Location: ../../logout.php");
 	exit;
 }
 
+#defining variables
 $lectureId = res($_GET["id"]);
 $ifFreeSpace = 0;
 
 
-
+#tries to select the chosen lecture from the database
 if ($result = $db->query("SELECT id, seats, reserved,timelineNumber FROM lectures WHERE id=" .$lectureId))
-{
+{	#if query was successful --> $rows : the datas of the lecture
 	$rows = array();
 	while ($row = mysqli_fetch_array($result))
 	{
@@ -49,15 +52,16 @@ if ($result = $db->query("SELECT id, seats, reserved,timelineNumber FROM lecture
 	}
 	$result->free();
 
-	if (empty($rows))
+	if (empty($rows))	#there is no lecture with the selected id --> goes to index.php
 	{
 		header("Location: ../../index.php");
 		exit;
 	}
-	else if ($rows[0]["reserved"] < $rows[0]["seats"])
+	else if ($rows[0]["reserved"] < $rows[0]["seats"])	#the lecture is not full yet, the user can choose this lecture
 	{
 		if ($result = $db->query("SELECT L".$rows[0]["timelineNumber"].", changes FROM lecregistration WHERE studentId=".$user["id"]))
 		{
+			#gets the previously selected lecture and the amount of changes left as prev[][], [0][0]->previously selected lecture, [0][1]->changes left
 			$prevR = array();
 			while ($prev = mysqli_fetch_array($result))
 			{
@@ -65,34 +69,35 @@ if ($result = $db->query("SELECT id, seats, reserved,timelineNumber FROM lecture
 			}
 			$result->free();
 
-			if ($prevR[0][0] == $lectureId)
+			if ($prevR[0][0] == $lectureId)	#if the previously selected lexture's id equals to the new lecture's id -> change is not necessary, goes to index.php
 			{
 				header("Location: ../../index.php");
 				exit;
 			}
-			if ($prevR[0][1] == 0)
+			if ($prevR[0][1] == 0)	#if the user has no changes left, can not change lecture, error message, redirects after 3 second to index.php
 			{
 				echo "<a href='../../index.php'>A jelentkezés sikertelen volt. Túl sokszor módosítottál rajta. :(</a>";
 				header("Refresh: 3; url = ../../index.php");
 				exit;			
 			}
 		}
-		else 
+		else 	#cannot check the user's data (previously selected lecture, changes left)->logout.php
 		{
 			header("Location: ../../index.php");
 			exit;
 		}
 
+		#changes the user's selected lecture, increases the new lecture's reserved value, decreases the prev.ly selected lecture's reserved value, decreases the user's change value
 		if ($db->query("UPDATE lecregistration SET L" .$rows[0]["timelineNumber"]. "=" .$rows[0]["id"]. " WHERE studentId=".$user["id"]) AND 
 			$db->query("UPDATE lectures SET reserved=reserved+1 WHERE id=".$rows[0]["id"]) AND
 			$db->query("UPDATE lectures SET reserved=reserved-1 WHERE id=".$prevR[0][0]) AND
-			$db->query("UPDATE lecregistration SET changes=changes-1 WHERE studentId=".$user["id"])) 
+			$db->query("UPDATE lecregistration SET changes=changes-1 WHERE studentId=".$user["id"])) 	#if the queries above were successful, message, redirects after 5 seconds to index.php
 		{
 			echo "<a href='../../index.php'>Jelentkezésedet rögzítettük. Még ".($prevR[0][1]-1)." alkalommal módosíthatsz a jelentkezéseden.</br>Jó szórakozást kívánunk az előadáshoz!</a>";
 			header("Refresh: 5; url = ../../index.php");
 			exit;
 		}
-		else
+		else 	#queries above were unsuccessful, error message, redirects after 3 seconds to index.php
 		{
 			echo "<a herf='../../index.php'>Hiba merült fel a jelentkezés elküldése közben. Kérlek, próbálj újra később!</a>";
 			header("Refresh: 3; url = ../../index.php");

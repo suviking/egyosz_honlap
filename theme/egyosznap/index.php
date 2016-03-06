@@ -132,6 +132,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	$result ->free();
 	$lectureNumber = $rows[0][0];	#how many lectures are there in the chosen timeline
 
+	#selects the properties of all lectures in the given as $rows[][]
 	$result = $db->query("SELECT * FROM lectures WHERE timelineNumber=" .res($_GET["lectureSelect"])) OR die();
 	$rows = array();
 	while ($row = mysqli_fetch_array($result))
@@ -140,6 +141,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	}
 	$result->free();
 
+	#gets that how many changes the user has as $change
 	$result = $db->query("SELECT changes FROM lecregistration WHERE studentId=".$user["id"]) OR die($db->error);
 	$changes = array();
 	while ($change = mysqli_fetch_array($result))
@@ -150,10 +152,10 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	$change = $changes[0][0];
 
 
-
+	#displays all lectures in the given timeline
 	for ($i = 0; $i < $lectureNumber; $i++)
 	{
-		if ($rows[$i]["reserved"] < $rows[$i]["seats"] AND $changes > 0)
+		if ($rows[$i]["reserved"] < $rows[$i]["seats"] AND $changes > 0)	#if the lecture is not full and the user has changes left
 		{
 		?>
 			<div>
@@ -169,7 +171,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 			</br></br>
 		<?php
 		}
-		else
+		else 	#the lecture is already full or the user has no changes left
 		{
 		?>
 			<div>
