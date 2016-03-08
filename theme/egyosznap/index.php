@@ -77,7 +77,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	$change = $changes[0][0];
 
 	echo "
-		<div class='alert alert-info'>
+		<div class='panel panel-default panel-body'>
 			Még $change módosítási lehetőséged van hátra.
 		</div>
 	";
@@ -194,7 +194,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 
 
 	echo "
-		<div class='alert alert-info'>
+		<div class='panel panel-default panel-body'>
 			Még $change módosítási lehetőséged van hátra.
 		</div>
 	";
