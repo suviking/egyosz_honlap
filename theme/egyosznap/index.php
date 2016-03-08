@@ -48,7 +48,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	#can use the registration page --> the registration page, only lists selected lectures, full list and select mode are below
 
 	#header starts
-	echo "	
+	echo "
 		<div class='navbar navbar-warning'>
 			<div class='navbar-header'>
 				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
@@ -81,26 +81,52 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 
 		if (empty($rows))
 		{
-			echo("<table>
+			/*echo("<table>
 				<tr> <th>".($i+1).". sáv</th> </tr>
 				<tr> <td><b>Ebben a sávban még nem jelentkeztél előadásra.</td> <th><a href='?lectureSelect=".($i+1)."'>Jelentkezés</th> </tr>
-				</table>");
+				</table>");*/
+
+			echo "
+				<div class='panel panel-success'>
+					<div class='panel-heading'>
+						<b>".($i+1)." .sáv</b>
+					</div>
+					<div class='panel-body'>
+						Ebben a sávban még nem jelentkeztél előadásra.
+						<br>
+						<a href='?lectureSelect=".($i+1)."' class='btn btn-raised btn-success'>Jelentkezés</a>
+					</div>
+				</div>
+			";
 		}
 		else
 		{
-			echo("<table>
+			/*echo("<table>
 					<tr> <th>".($i+1).". sáv</th> </tr>
 					<tr> <td><b>".$rows[0]["title"]."</b> - ".$rows[0]["subtitle"]."</td> <th><a href='?lectureSelect=".($i+1)."'>Módosítás</th> </tr>
-				</table>");
+				</table>");*/
+
+				echo "
+					<div class='panel panel-warning'>
+						<div class='panel-heading'>
+							<b>".($i+1)." .sáv</b>
+						</div>
+						<div class='panel-body'>
+							".$rows[0]["title"]." - ".$rows[0]["subtitle"]."
+							<br>
+							<a href='?lectureSelect=".($i+1)."' class='btn btn-raised btn-warning'>Módosítás</a>
+						</div>
+					</div>
+				";
 		}
 	}
 
 }
 else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND intval($_GET["lectureSelect"])>0 ) #if the user wants to modify the selected lecture or wants to select
 {
-	
+
 	#header starts
-	echo "	
+	echo "
 		<div class='navbar navbar-warning'>
 			<div class='navbar-header'>
 				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
@@ -155,10 +181,10 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	#displays all lectures in the given timeline
 	for ($i = 0; $i < $lectureNumber; $i++)
 	{
-		if ($rows[$i]["reserved"] < $rows[$i]["seats"] AND $changes > 0)	#if the lecture is not full and the user has changes left
+		if ($rows[$i]["reserved"] < $rows[$i]["seats"] && $change > 0)	#if the lecture is not full and the user has changes left
 		{
 		?>
-			<div>
+			<!--<div>
 				<p><b> <?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
 
 				<div>
@@ -168,13 +194,30 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<p><a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' >Kiválaszt</a></p>
 				</div>
 			</div>
-			</br></br>
+		</br></br>-->
+
+
+			<div class='panel panel-success'>
+				<div class='panel-heading'>
+					<b><?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?>
+				</div>
+				<div class='panel-body'>
+					<b> -<?php echo $rows[$i]["subtitle"];?> </b>
+					<br>
+					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
+					<br> <br>
+					<p> <?php echo $rows[$i]["description"];?> </p>
+					<a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' class='btn btn-raised btn-success'>Kiválaszt</a>
+				</div>
+			</div>
+
+
 		<?php
 		}
 		else 	#the lecture is already full or the user has no changes left
 		{
 		?>
-			<div>
+			<!--<div>
 				<p><b> <?php echo $rows[$i]["title"]; ?> </b> Erre az előadásra nem tudsz jelentkezni. <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
 
 				<div>
@@ -183,7 +226,24 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<p> <?php echo $rows[$i]["description"];?> </p>
 				</div>
 			</div>
-			</br></br>
+		</br></br>-->
+
+			<div class='panel panel-danger'>
+				<div class='panel-heading'>
+					<b><?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?>
+					<br>
+					<b> Erre az előadásra nem tudsz jelentkezni.</b>
+				</div>
+				<div class='panel-body'>
+					<b> -<?php echo $rows[$i]["subtitle"];?> </b>
+					<br>
+					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
+					<br> <br>
+					<p> <?php echo $rows[$i]["description"];?> </p>
+				</div>
+			</div>
+
+
 		<?php
 		}
 	}
