@@ -66,7 +66,21 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 		<h2 class='well'>Köszöntünk a honlapon, " .$user["firstName"]. "! Itt tudsz regisztrálni a különböző előadásokra.</h2>";
 	#header ends
 
+	#gets that how many changes the user has as $change
+	$result = $db->query("SELECT changes FROM lecregistration WHERE studentId=".$user["id"]) OR die($db->error);
+	$changes = array();
+	while ($change = mysqli_fetch_array($result))
+	{
+		$changes[] = $change;
+	}
+	$result->free();
+	$change = $changes[0][0];
 
+	echo "
+		<div class='alert alert-info'>
+			Még $change módosítási lehetőséged van hátra.
+		</div>
+	";
 
 	#lists the timelines and indicates to each, if the user has selected a lecture to the timeline, and if does, which
 	for ($i = 0; $i < $timelineNumber; $i++)
@@ -167,6 +181,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	}
 	$result->free();
 
+
 	#gets that how many changes the user has as $change
 	$result = $db->query("SELECT changes FROM lecregistration WHERE studentId=".$user["id"]) OR die($db->error);
 	$changes = array();
@@ -176,6 +191,13 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 	}
 	$result->free();
 	$change = $changes[0][0];
+
+
+	echo "
+		<div class='alert alert-info'>
+			Még $change módosítási lehetőséged van hátra.
+		</div>
+	";
 
 
 	#displays all lectures in the given timeline
