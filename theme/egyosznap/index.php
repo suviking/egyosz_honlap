@@ -216,7 +216,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 				<p><b> <?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
 
 				<div>
-					<p> -<?php echo $rows[$i]["subtitle"];?> </p>
+					<p> <?php echo $rows[$i]["subtitle"];?> </p>
 					<p> <?php echo $rows[$i]["presenter"];?> </p>
 					<p> <?php echo $rows[$i]["description"];?> </p>
 					<p><a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' >Kiválaszt</a></p>
@@ -230,7 +230,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<b><?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?>
 				</div>
 				<div class='panel-body'>
-					<b> -<?php echo $rows[$i]["subtitle"];?> </b>
+					<b> <?php echo $rows[$i]["subtitle"];?> </b>
 					<br>
 					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
 					<br> <br>
@@ -245,16 +245,16 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 		else 	#the lecture is already full or the user has no changes left
 		{
 		?>
-			<!--<div>
+			<!-- <div>
 				<p><b> <?php echo $rows[$i]["title"]; ?> </b> Erre az előadásra nem tudsz jelentkezni. <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?> </p>
 
 				<div>
-					<p> -<?php echo $rows[$i]["subtitle"];?> </p>
+					<p> <?php echo $rows[$i]["subtitle"];?> </p>
 					<p> <?php echo $rows[$i]["presenter"];?> </p>
 					<p> <?php echo $rows[$i]["description"];?> </p>
 				</div>
 			</div>
-		</br></br>-->
+		</br></br> -->
 
 			<div class='panel panel-danger'>
 				<div class='panel-heading'>
@@ -263,7 +263,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<b> Erre az előadásra nem tudsz jelentkezni.</b>
 				</div>
 				<div class='panel-body'>
-					<b> -<?php echo $rows[$i]["subtitle"];?> </b>
+					<b> <?php echo $rows[$i]["subtitle"];?> </b>
 					<br>
 					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
 					<br> <br>
