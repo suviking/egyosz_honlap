@@ -18,8 +18,9 @@ if (isset($_COOKIE["username"]) AND isset($_COOKIE["cookie"]))
 		if (sha1($user["cookie"]) == $cookie)
 		{
 			//dupla cookie hiba!!
-			/*setcookie("cookie", $cookie, time() + 1800);
-			setcookie("username", $username, time() + 1800);*/
+			setcookie("cookie", $cookie, time() + 1800);
+			setcookie("username", $username, time() + 1800);
+			exit;
 		}
 		else
 		{
