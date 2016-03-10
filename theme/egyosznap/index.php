@@ -230,7 +230,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<b><?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?>
 				</div>
 				<div class='panel-body'>
-					<b> <?php echo $rows[$i]["subtitle"];?> </b>
+					<b>Helyszín:</b> <?php echo $rows[$i]["location"];?> 
 					<br>
 					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
 					<br> <br>
