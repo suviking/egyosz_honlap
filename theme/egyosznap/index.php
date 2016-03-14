@@ -230,12 +230,12 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<b><?php echo $rows[$i]["title"]; ?> </b> <?php echo $rows[$i]["reserved"];?>/<?php echo $rows[$i]["seats"];?>
 				</div>
 				<div class='panel-body'>
-					<b>Helyszín:</b> <?php echo $rows[$i]["location"];?> 
+					<b>Helyszín:</b> <?php echo $rows[$i]["location"];?>
 					<br>
 					<b>Előadó: </b><?php echo $rows[$i]["presenter"];?>
 					<br> <br>
 					<p> <?php echo $rows[$i]["description"];?> </p>
-					<a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' class='btn btn-raised btn-success'>Kiválaszt</a>
+					<a href='theme/egyosznap/chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' class='btn btn-raised btn-success'>Kiválaszt</a>
 				</div>
 			</div>
 
