@@ -1,0 +1,4 @@
+database:
+database name: 	u230561313_datab
+database user: u230561313_root
+password: rootadmin
