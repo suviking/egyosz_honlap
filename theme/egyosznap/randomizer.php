@@ -28,6 +28,7 @@ $result->free();
 
 
 
+
 $lecturesFreePlaces = array();
 for ($i = 0; $i < $lectureFreeNumber; $i++)
 {
