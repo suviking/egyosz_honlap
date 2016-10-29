@@ -24,7 +24,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 	{
 		$username = nameString(res($_POST["username"]));
 		$password = res($_POST["password"]);
-		$cookie = $password;
+		
 		$password = sha1($password);
 
 		if ($result = $db->query("SELECT * FROM students WHERE username = '".$username."' AND OM = '".$password."' "))
@@ -159,19 +159,12 @@ else	//if the user did not try to log in, the default login form
 		");*/
 
 		echo "
+			
 			<script src='js/clock.js'></script>
-
 
 			<div class='navbar navbar-warning'>
 				<div class='navbar-header'>
 					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-				</div>
-				<div class='navbar-collapse collapse navbar-warning-collapse'>
-					<ul class='nav navbar-nav navbar-right'>
-						<li>
-							<!--<a href=''>Bejelentkezés</a>-->
-						</li>
-					</ul>
 				</div>
 			</div>
 
@@ -179,13 +172,19 @@ else	//if the user did not try to log in, the default login form
 				<h1>$welcomeText</h1>
 				<div class='col-lg-8'>
 					<p>$description</p>
+					<p>
+						A jelentkezés határideje: ".$deadLineDate->format('Y. m. d. - H:i:s')."<br>
+						<div id='clock' class='col-md-3'>
+						</div>
+					</p>
 				</div>
-				<div id='clock'>
-				</div>
+				
+				<script>initializeClock(". ($deadLineTS) .")</script>
+
 				<form class='col-lg-4' action='login.php' method='POST'>
 					<fieldset>
 						<div class='form-group'>
-							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév' onload='initializeClock(".$deadLine.")'>
+							<input class='form-control floating-label' type='text' name='username' placeholder='Felhasználónév'>
 						</div>
 						<div class='form-group'>
 							<input class='form-control floating-label' type='password' name='password' placeholder='OM azonosító'>

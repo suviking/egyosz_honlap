@@ -3,7 +3,7 @@ echo("
 <html>
 	<head>
 		<meta charset='UTF-8' />
-		<title>" .$title. "</title>
+		<title>" .$maintitle. "</title>
 
 		<link rel='stylesheet' href='./bootstrap/css/bootstrap.css'>
 		<link rel='stylesheet' href='./bootstrap/material/css/material-fullpalette.css'>

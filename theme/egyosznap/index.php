@@ -29,8 +29,8 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 		header("Location: ?adminpage=1");
 		exit;
 	}
-	$dateNow = mktime(date("H"), date("i"), date("s"), date("m")  , date("d"), date("Y"));
-	if ($user["EGYOSZaccessLevel"] == 4 AND $dateNow > $deadLineDate)	#if the user is a student and the deadline is over - registration forbidden
+	$dateNow = time();
+	if ($user["EGYOSZaccessLevel"] == 4 AND $dateNow > $deadLineTS)	#if the user is a student and the deadline is over - registration forbidden
 	{
 		echo "
 		<div class='navbar navbar-warning'>

@@ -26,8 +26,8 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 		header("Location: ?adminpage=1");
 		exit;
 	}
-	$dateNow = mktime(0, 0, 0, date("m")  , date("d"), date("Y"));
-	if ($user["accessLevel"] == 4 AND $dateNow > $deadLineDate)
+	$dateNow = time();
+	if ($user["accessLevel"] == 4 AND $dateNow > $deadLineTS)
 	{
 		echo "
 		<div class='navbar navbar-warning'>
