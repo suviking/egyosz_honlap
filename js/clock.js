@@ -3,7 +3,7 @@ function getRemaining(endtime)
   var day = 60*60*24;
   var hour = 60*60;
 
-  var current = Math.floor(Date.now() / 1000); //timezone correction, Date.now() give timestamp in UTC, Hungarian time is UTC + 1 hour
+  var current = Math.floor(Date.now() / 1000);
 
   
   var t = endtime - current;
@@ -27,7 +27,7 @@ function initializeClock(endtime)
       var hours = Math.floor((t - (days*day)) / hour);
       var minutes = Math.floor((t - (days*day) - (hour*hours)) / 60);
       var seconds = Math.floor(t - (days*day) - (hour*hours) - (minutes*60));
-      clock.innerHTML = "<p>Még hátra van <br> <strong>"+ days + " : " + hours + " : " + minutes + " : " + seconds + "</strong></p>";
+      clock.innerHTML = "<p>Még hátra van: <br> <strong>"+ days + " : " + hours + " : " + minutes + " : " + seconds + "</strong></p>";
     }
     else
     {

@@ -1,18 +1,24 @@
 <?php
 
-$maintitle = "Illyés Napok - 2016";
+$result = $db->query("SELECT * FROM config LIMIT 1");
+$config = $result->fetch_assoc();
+$result->free();
 
-$deadLineDate = new DateTime('2016-12-05 23:59:59', new DateTimeZone('Europe/Rome'));
+
+$maintitle = $config["maintitle"]." - ".$config["titleYear"];
+
+$deadLineDate = new DateTime($config["deadLineDate"], new DateTimeZone('Europe/Rome'));
 $deadLineTS = date_timestamp_get($deadLineDate); //the UNIX timestamp of the deadLineDate
 
-$theme = "illyesnapok"; //you can choose from: "illyesnapok"; "egyosznap"; "tanarertekeles"
+$theme = $config["currentTheme"]; //you can choose from: "illyesnapok"; "egyosznap"; "tanarertekeles"
 
-$vars = array();
-$vars["illyesnapok"] = array("title" => "Illyés Napok");
-$vars["egyosznap"] = array("title" => "Egyos Nap");
 
+$headerText = "<div class='navbar navbar-warning'>
+					<div class='navbar-header'>
+						<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
+					</div>";
 $welcomeText = "Köszöntünk az Egyosz oldalán!";
-$description = "Idén is, mint azt már megszokhattátok, az interneten kell jelentkeznetek az ".$vars[$theme]['title']."ra a produkcióitokkal.";
+$description = "Idén is, mint azt már megszokhattátok, az interneten kell jelentkeznetek az ".$config["maintitle"]."ra a produkcióitokkal.";
 
 
 

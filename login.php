@@ -33,8 +33,8 @@ if (isset($_POST["username"]))	//if the user tried to log in
 			{
 				$user = $result->fetch_assoc();
 				$cookie = sha1($user["cookie"]);
-				setcookie("cookie", $cookie, time() + 1800);
-				setcookie("username", $user["username"], time() + 1800);
+				setcookie("cookie", $cookie, time() + 1800, '/');
+				setcookie("username", $user["username"], time() + 1800, '/');
 				header("Location: index.php");
 				exit;
 			}
@@ -54,12 +54,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 					</td></tr>
 				</table>");*/
 
-				echo "
-				<div class='navbar navbar-warning'>
-					<div class='navbar-header'>
-						<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-					</div>
-					<div class='navbar-collapse collapse navbar-warning-collapse'>
+				echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 						<ul class='nav navbar-nav navbar-right'>
 							<li>
 								<!--<a href=''>Bejelentkezés</a>-->
@@ -95,12 +90,7 @@ if (isset($_POST["username"]))	//if the user tried to log in
 			</table>
 			");*/
 
-			echo "
-			<div class='navbar navbar-warning'>
-				<div class='navbar-header'>
-					<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-				</div>
-				<div class='navbar-collapse collapse navbar-warning-collapse'>
+			echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 					<ul class='nav navbar-nav navbar-right'>
 						<li>
 							<!--<a href=''>Bejelentkezés</a>-->

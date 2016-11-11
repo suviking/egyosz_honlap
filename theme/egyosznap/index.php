@@ -32,12 +32,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	$dateNow = time();
 	if ($user["EGYOSZaccessLevel"] == 4 AND $dateNow > $deadLineTS)	#if the user is a student and the deadline is over - registration forbidden
 	{
-		echo "
-		<div class='navbar navbar-warning'>
-			<div class='navbar-header'>
-				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-			</div>
-			<div class='navbar-collapse collapse navbar-warning-collapse'>
+		echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 				<ul class='nav navbar-nav navbar-right'>
 					" .$adminLink. "
 					<li>
@@ -54,12 +49,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	#can use the registration page --> the registration page, only lists selected lectures, full list and select mode are below
 
 	#header starts
-	echo "
-		<div class='navbar navbar-warning'>
-			<div class='navbar-header'>
-				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-			</div>
-			<div class='navbar-collapse collapse navbar-warning-collapse'>
+	echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 				<ul class='nav navbar-nav navbar-right'>
 					" .$adminLink. "
 					<li>
@@ -146,12 +136,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 {
 
 	#header starts
-	echo "
-		<div class='navbar navbar-warning'>
-			<div class='navbar-header'>
-				<a class='navbar-brand' href='http://" . $_SERVER['HTTP_HOST'] . "'>$maintitle</a>
-			</div>
-			<div class='navbar-collapse collapse navbar-warning-collapse'>
+	echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 				<ul class='nav navbar-nav navbar-right'>
 					<li>
 						<a href='index.php'>Vissza</a>
@@ -270,8 +255,6 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<p> <?php echo $rows[$i]["description"];?> </p>
 				</div>
 			</div>
-
-
 		<?php
 		}
 	}
@@ -279,7 +262,11 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 }
 else if (isset($_GET["adminpage"]))
 {
-
+	if (!include("theme/adminPage.php"))
+	{
+		header("Location: logout.php");
+		exit;
+	}
 }
 else
 {
