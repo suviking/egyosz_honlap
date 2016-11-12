@@ -204,7 +204,7 @@ else if (isset($_GET["lectureSelect"]) AND intval($_GET["lectureSelect"])<10 AND
 					<p> <?php echo $rows[$i]["subtitle"];?> </p>
 					<p> <?php echo $rows[$i]["presenter"];?> </p>
 					<p> <?php echo $rows[$i]["description"];?> </p>
-					<p><a href='theme\egyosznap\chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' >Kiválaszt</a></p>
+					<p><a href='theme/egyosznap/chooseLecture.php?id=<?php echo $rows[$i]["id"];?>' >Kiválaszt</a></p>
 				</div>
 			</div>
 		</br></br>-->
