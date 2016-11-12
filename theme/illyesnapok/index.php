@@ -12,11 +12,14 @@ if (!include("include/cookiecheck.php"))
 
 if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes directly to the registration form
 {
-	$adminLink = "";
+	$adminLink = "
+				<li>
+					<a href='policy.php'>Szabályzat - Tudnivalók</a>
+				</li>";
 
 	if ($user["accessLevel"] < 4) 	#checks if the user has the right to access the admin page and if it does the program creates a link to there
 	{
-		$adminLink =
+		$adminLink .=
 		"<li>
 			<a href='?adminpage=1'>Admin felület</a>
 		</li>";
@@ -49,9 +52,6 @@ if (!isset($_GET["adminpage"]))		#dont wanted to use the admin site, goes direct
 	echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 				<ul class='nav navbar-nav navbar-right'>
 					" .$adminLink. "
-					<li>
-						<a href='policy.php'>Szabályzat - Tudnivalók</a>
-					</li>
 					<li>
 						<a href='logout.php'>Kijelentkezés</a>
 					</li>
