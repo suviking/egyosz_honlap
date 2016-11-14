@@ -28,14 +28,13 @@ echo(
 	</head>
 	");
 
-
-if ($user["accessLevel"] == 1 OR $user["accessLevel"] == 4)
+if ($user["accessLevel"] == 1 OR $user["accessLevel"] == 4 OR $user["accessLevel"] == 0)
 {
 
 }
 else
 {
-	header("Location: ../../logout.php");
+	header("Location: ../logout.php");
 	exit;
 }
 
