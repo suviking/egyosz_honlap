@@ -33,11 +33,8 @@ echo $headerText."<div class='navbar-collapse collapse navbar-warning-collapse'>
 					data-original-title='2016. 12. 05. 24:00'>JELENTKEZÉSI határidőig</span> 
 					kell jelezned.</li>
 				</ul>
-				<button type='button' class='btn btn-default' data-toggle='tooltip' data-placement='top' title='' data-original-title='Tooltip on right'>Right</button>
-			</div>"; ?>
-			<button type="button" class="btn btn-default" data-toggle="tooltip" placement="top" title="" data-original-title="Tooltip on right">Right</button>
-			<?php
-			echo "<div class='panel panel-warning'>
+			</div>
+			<div class='panel panel-warning'>
 				<div class='panel-heading'><h4>Videó:</h4></div>
 				<ul style='font-size: 125%;'>
 					<li>A videók maximum időtartama 5 perc lehet. Időtúllépésért pontlevonás jár.</li>
