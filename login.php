@@ -182,11 +182,6 @@ else	//if the user did not try to log in, the default login form
 						<div class='form-group'>
 							<button type='submit' class='btn btn-primary'>Jelentkezés</button>
 						</div>
-						<div class='form-group label-floating'>
-						    <label for='i5' class='control-label'>label-floating</label>
-						    <input type='email' class='form-control' id='i5'>
-						    <span class='help-block'>This is a hint as a <code>span.help-block.hint</code></span>
-						  </div>
 					</fieldset>
 				</form>
 			</div>

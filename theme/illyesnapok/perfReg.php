@@ -29,9 +29,9 @@ echo(
 	");
 
 
-if ($user["accessLevel"] <> 2 AND $user["accessLevel"] <> 3)
+if ($user["accessLevel"] <> 1 AND $user["accessLevel"] <> 4)
 {
-	header("Location: logout.php");
+	header("Location: ../../logout.php");
 	exit;
 }
 
@@ -75,12 +75,12 @@ if (!isset($_GET["edit"]))
 
 
 	if ($stmt = $db->prepare(
-		"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg)
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {die($db->error);}
+		"INSERT INTO performances (regStudID, title, partNo, category, duration, location, wiredMic, wiredMicStand, wirelessMic, wirelessMicStand, microport, fieldMic, instMic, chair, musicFile, projectorFile, lightRequest, email, particUsers, piano, jack63, jack35, musicStand, guitarAmp, comment, dateOfReg, uniqueTimeStamp)
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?); ")) {} else {die($db->error);}
 
-	$stmt->bind_param("isisisiiiiiiiississiiiiiss",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic,
+	$stmt->bind_param("isisisiiiiiiiississiiiiissi",$regStudID, $title, $partNo, $category, $duration, $location, $wiredMic, $wiredMicStand, $wirelessMic,
 		$wirelessMicStand, $microport, $fieldMic, $instMic, $chair, $musicFile, $projectorFile, $lightRequest, $email, $particUsers, $piano, $jack63, $jack35,
-		$musicStand, $guitarAmp, $comment, $dateOfReg);
+		$musicStand, $guitarAmp, $comment, $dateOfReg, $uniqueTimeStamp);
 
 	if($stmt->execute())
 	{
@@ -91,7 +91,7 @@ if (!isset($_GET["edit"]))
 		";
 	}
 	else
-	{
+	{die($db->error);
 		echo($db->error);
 		echo"
 			<div class='alert alert-danger'>
