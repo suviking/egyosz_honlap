@@ -79,7 +79,7 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 	";
 
 	#lists the timelines and indicates to each, if the user has selected a lecture to the timeline, and if does, which
-	for ($i = 0; $i < $timelineNumber; $i++)
+	for ($i = 0; $i <= $timelineNumber; $i++)
 	{
 		$result = $db->query("SELECT * FROM lectures INNER JOIN lecregistration ON lectures.id = lecregistration.L".($i+1)." WHERE studentId = ".$user["id"]) OR die();
 		$rows = array();
@@ -91,11 +91,6 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 
 		if (empty($rows))
 		{
-			/*echo("<table>
-				<tr> <th>".($i+1).". sáv</th> </tr>
-				<tr> <td><b>Ebben a sávban még nem jelentkeztél előadásra.</td> <th><a href='?lectureSelect=".($i+1)."'>Jelentkezés</th> </tr>
-				</table>");*/
-
 			echo "
 				<div class='panel panel-success'>
 					<div class='panel-heading'>
@@ -111,11 +106,6 @@ if (!isset($_GET["adminpage"]) AND !isset($_GET["lectureSelect"]))		#dont wanted
 		}
 		else
 		{
-			/*echo("<table>
-					<tr> <th>".($i+1).". sáv</th> </tr>
-					<tr> <td><b>".$rows[0]["title"]."</b> - ".$rows[0]["subtitle"]."</td> <th><a href='?lectureSelect=".($i+1)."'>Módosítás</th> </tr>
-				</table>");*/
-
 				echo "
 					<div class='panel panel-warning'>
 						<div class='panel-heading'>

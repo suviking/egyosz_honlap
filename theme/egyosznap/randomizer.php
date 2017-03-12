@@ -1,7 +1,8 @@
-<?php 
+<?php
 
-require_once("../../theme/currentTheme.php");
 require_once("../../include/dbconnect.php");
+require_once("../../theme/currentTheme.php");
+
 
 $result = $db->query("SELECT studentId FROM lecregistration WHERE L1 = 0") OR die($db->error);
 $userIds = array();
@@ -16,7 +17,7 @@ $result = $db->query("SELECT id, seats, reserved FROM lectures WHERE seats > res
 $lecturesSource = array();
 while ($row = mysqli_fetch_array($result))
 {
-	$lecturesSource[] = $row; 
+	$lecturesSource[] = $row;
 }
 $result->free();
 
@@ -36,7 +37,7 @@ for ($i = 0; $i < $lectureFreeNumber; $i++)
 	for ($j = 0; $j < $free; $j++)
 	{
 		$lecturesFreePlaces[] = $lecturesSource[$i]["id"];
-	} 
+	}
 }
 
 shuffle($userIds);
